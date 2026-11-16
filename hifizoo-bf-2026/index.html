@@ -241,13 +241,19 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
   #pick{padding-top:14px}
   #pick .h2{margin-bottom:6px}
   .fire{width:32px;height:32px;font-size:17px;border-radius:10px}
-  .stats{flex-direction:row}
-  .maxoff{flex:1.1;flex-direction:column;align-items:flex-start;gap:4px;padding:12px 14px}
-  .maxoff span{font-size:11.5px}
-  .maxoff .num{font-size:40px}
-  .cd{flex:1;padding:10px 12px}
-  .cd .boxes{gap:4px}
-  .cd .b .num{font-size:20px}
+  .stats{flex-direction:row;gap:8px}
+  .maxoff{flex:1;flex-direction:row;align-items:center;gap:6px;padding:8px 12px;border-radius:14px;box-shadow:0 14px 30px -18px #ff5a2acc}
+  .maxoff span{font-size:10px;line-height:1.3}
+  .maxoff .num{font-size:28px}
+  .maxoff .num small{font-size:12px}
+  .cd{flex:1;padding:7px 10px;border-radius:14px}
+  .cd .lbl{font-size:9.5px;line-height:1.2}
+  .cd .boxes{gap:0;margin-top:1px;justify-content:flex-start}
+  .cd .b{flex:none}
+  .cd .b .num{font-size:19px;display:inline}
+  .cd .b small{display:none}
+  .cd .b:first-child::after{content:"日";font-size:11px;font-weight:700;margin:0 5px 0 1px;color:var(--sub)}
+  .cd .b:nth-child(2)::after,.cd .b:nth-child(3)::after{content:":";font-family:"Outfit";font-weight:800;font-size:17px;margin:0 2px;color:var(--mute)}
   .cd .period{display:none}
   section{padding:20px 0}
   .rail-wrap{--cw:min(62vw,250px)}
