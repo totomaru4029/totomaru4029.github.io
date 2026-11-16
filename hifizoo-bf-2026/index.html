@@ -439,6 +439,24 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
 .fab:hover{background:#ff730022}
 body.sheet-open{overflow:hidden}
 .toast{z-index:20}
+
+/* 全機種一覧：PCは写真を大きく見せるカード型（3列） */
+@media (min-width:761px){
+  .list{grid-template-columns:repeat(3,1fr);gap:24px}
+  .item{grid-template-columns:1fr;grid-template-areas:"tn" "info" "codes" "acts";align-items:stretch;padding:14px;gap:12px}
+  .item .tn{width:100%;height:auto;aspect-ratio:1/1;border-radius:12px;object-fit:cover;background:#111;box-shadow:0 14px 30px -16px #000}
+  .item .nm{font-size:17px}
+  .item .pr .num{font-size:24px}
+  .item .iacts{margin-top:auto}
+  .fstate,.empty{grid-column:1/-1}
+}
+@media (min-width:761px) and (max-width:1000px){
+  .list{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:760px){
+  .item{grid-template-columns:88px 1fr}
+  .item .tn{width:88px;height:88px;object-fit:cover;background:#111}
+}
 </style>
 </head>
 <body>
