@@ -9,6 +9,14 @@
 <meta property="og:description" content="クーポン3枚重ねで最大64%オフ。目玉商品とコードをまとめました。">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://kasai4029.github.io/totomaru-lp/hifizoo-bf-2026/">
+<meta property="og:image" content="https://kasai4029.github.io/totomaru-lp/hifizoo-bf-2026/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="HiFiZoo × ととまる BLACK FRIDAY 2026 クーポン3枚重ねで最大64%OFF">
+<meta name="twitter:image" content="https://kasai4029.github.io/totomaru-lp/hifizoo-bf-2026/img/og.png">
+<meta property="og:site_name" content="ととまる">
+<meta property="og:locale" content="ja_JP">
 <meta name="theme-color" content="#0a0a0c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -107,7 +115,7 @@ section{padding:28px 0}
 .card.active{border-color:#ff7300aa;box-shadow:0 26px 60px -26px #ff7300aa,0 0 0 1px #ff730055}
 .card .thumb{aspect-ratio:1/1;position:relative;background:#111;overflow:hidden}
 .card .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 6s ease}
-.card.active .thumb img{transform:scale(1.06)}
+.card.active .thumb img{transform:none}
 .card .thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,#ffffff2e 50%,transparent 65%);transform:translateX(-120%);pointer-events:none}
 .card.active .thumb::after{animation:shine 1.1s .15s ease}
 @keyframes shine{to{transform:translateX(120%)}}
@@ -381,6 +389,47 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
   .maxoff span{font-size:9px}
   .maxoff .num{font-size:24px}
 }
+
+/* クーポンの使い方：下から出るシート */
+.sheet{border:0;padding:0;margin:auto auto 0;width:100%;max-width:560px;max-height:88vh;background:transparent;color:var(--tx);overflow:visible}
+.sheet::backdrop{background:#000a;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.sheet[open]{animation:sheetUp .32s cubic-bezier(.2,.8,.2,1)}
+.sheet[open]::backdrop{animation:fadeIn .25s ease}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.sheet.closing{animation:sheetDown .22s ease forwards}
+@keyframes sheetDown{to{transform:translateY(100%)}}
+.sheet-in{background:var(--bg2);border:1px solid var(--line);border-bottom:0;border-radius:22px 22px 0 0;padding:8px 18px calc(18px + env(safe-area-inset-bottom));max-height:88vh;overflow-y:auto;box-shadow:0 -20px 60px -20px #000}
+.sheet-grip{width:40px;height:4px;border-radius:9px;background:var(--line);margin:4px auto 10px}
+.sheet-h{display:flex;align-items:center;justify-content:space-between}
+.sheet-h h2{font-size:19px;font-weight:900}
+.sheet-x{all:unset;cursor:pointer;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;color:var(--sub);font-size:18px}
+.sheet-x:hover{background:var(--card)}
+.sheet-lead{font-size:13px;color:var(--sub);margin:2px 0 12px}
+.sheet-lead b{color:var(--or)}
+.sheet-steps{list-style:none;display:flex;flex-direction:column;gap:8px}
+.sheet-steps li{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.sheet-steps li>.num{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--grad);font-size:14px;font-weight:900}
+.sheet-steps h3{font-size:15px;line-height:1.3}
+.sheet-steps p{font-size:12.5px;color:var(--sub);margin-top:2px}
+.sheet-steps li.v{border-color:#ffc24a88;background:linear-gradient(160deg,#ffc24a14,var(--card) 60%)}
+.sheet-steps li.v>.num{background:var(--gold);color:#1a1208}
+.sheet-code{margin-top:8px;display:inline-flex;min-width:170px}
+.sheet-code b{font-size:17px}
+.sheet-ok{all:unset;cursor:pointer;display:block;text-align:center;margin-top:14px;min-height:46px;line-height:46px;border-radius:14px;background:var(--grad);font-weight:900;width:100%}
+@media (min-width:761px){
+  .sheet{margin:auto}
+  .sheet-in{border-radius:22px;border-bottom:1px solid var(--line)}
+  .sheet[open]{animation:popIn .25s cubic-bezier(.2,.8,.2,1)}
+  @keyframes popIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+  .sheet.closing{animation:fadeOut .18s ease forwards}
+  @keyframes fadeOut{to{opacity:0;transform:translateY(10px)}}
+}
+.fab{all:unset;cursor:pointer;position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:8;min-height:44px;padding:0 16px;border-radius:999px;background:#16161be8;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--or);font-weight:900;font-size:13px;box-shadow:0 10px 30px -10px #000;transform:translateY(120%);opacity:0;transition:transform .3s,opacity .3s}
+.fab.show{transform:none;opacity:1}
+.fab:hover{background:#ff730022}
+body.sheet-open{overflow:hidden}
+.toast{z-index:20}
 </style>
 </head>
 <body>
@@ -406,7 +455,7 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
       <p class="when"><span class="wl">開催期間</span><span id="when"></span></p>
       <div class="hcta">
         <a class="cta" href="#pick">🔥 目玉商品を見る</a>
-        <a class="cta2" href="#how">クーポンの使い方</a>
+        <a class="cta2" href="#how" data-open-how>クーポンの使い方</a>
       </div>
     </div>
     <div class="stats">
@@ -444,7 +493,7 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
         <li><b>②</b><span>AliExpressコード</span><small>JPBF〜</small></li>
         <li class="v"><b>③</b><span>TOTOTO</span><small>フォロワー限定</small></li>
       </ol>
-      <p class="buy-n">各商品のコードはタップでコピーできます。<a href="#how">くわしい使い方 ↓</a></p>
+      <p class="buy-n">各商品のコードはタップでコピーできます。<a href="#how" data-open-how>くわしい使い方を見る</a></p>
     </div>
   </section>
 
@@ -461,15 +510,22 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
     <div class="list" id="list"></div>
   </section>
 
-  <section id="how">
-    <div class="h2"><h2>クーポンの使い方</h2><p>コードはタップでコピー</p></div>
-    <div class="steps">
-      <div class="step"><div class="n">STEP 01</div><h3>商品ページを開く</h3><p>「AliExpressで見る」からAliExpressの商品ページへ移動します。</p></div>
-      <div class="step"><div class="n">STEP 02</div><h3>① ストアコード</h3><p>商品ごとに違うコードです。注文画面の「ストアクーポン」欄に入力します。</p></div>
-      <div class="step"><div class="n">STEP 03</div><h3>② AliExpressコード</h3><p>JPBF〜で始まるコードです。支払い前のクーポン欄に入力します。</p></div>
-      <div class="step vipstep"><div class="n">STEP 04</div><h3>③ TOTOTO</h3><p>フォロワー限定の$5 OFF。①②と併用できます。3つ使うと、このページの参考価格になります。</p></div>
+  <dialog id="how" class="sheet" aria-labelledby="howT">
+    <div class="sheet-in">
+      <div class="sheet-grip" aria-hidden="true"></div>
+      <div class="sheet-h"><h2 id="howT">クーポンの使い方</h2><button class="sheet-x" data-close aria-label="閉じる">✕</button></div>
+      <p class="sheet-lead">3つのクーポンを全部使うと、このページの<b>参考価格</b>になります。コードはタップでコピーできます。</p>
+      <ol class="sheet-steps">
+        <li><b class="num">1</b><div><h3>商品ページを開く</h3><p>「AliExpressで見る」からAliExpressの商品ページへ移動します。</p></div></li>
+        <li><b class="num">2</b><div><h3>① ストアコード</h3><p>商品ごとに違うコードです。注文画面の「ストアクーポン」欄に入力します。</p></div></li>
+        <li><b class="num">3</b><div><h3>② AliExpressコード</h3><p>JPBF〜で始まるコードです。支払い前のクーポン欄に入力します。</p></div></li>
+        <li class="v"><b class="num">4</b><div><h3>③ TOTOTO</h3><p>フォロワー限定の$5 OFF。①②と併用できます。</p>
+          <button class="code vipc sheet-code" data-c="TOTOTO" aria-label="TOTOTO をコピー"><small>③限定・タップでコピー</small><b>TOTOTO</b></button></div></li>
+      </ol>
+      <button class="sheet-ok" data-close>わかった</button>
     </div>
-  </section>
+  </dialog>
+  <button class="fab" id="fab" aria-haspopup="dialog" aria-controls="how">🎟 クーポンの使い方</button>
 
   <section>
     <div class="prof">
@@ -624,7 +680,8 @@ const state = { brand: ALL, hotOnly: false, sortBy: "rec" };
 const sorters = {rec:(a,b)=>(b.h-a.h)||(!!b.rv-!!a.rv)||(a.i-b.i), price:(a,b)=>a.fz-b.fz, off:(a,b)=>b.rz-a.rz};
 const passBrand = (x,b) => b===ALL || x.b===b;
 const passHot = x => !state.hotOnly || x.h;
-function render(){
+let render;
+render = function(){
   const chipsEl = document.getElementById("chips");
   chipsEl.innerHTML = [ALL,...brandNames].map(b=>{
     const n = items.filter(x=>passBrand(x,b)&&passHot(x)).length;
@@ -648,7 +705,25 @@ function render(){
   const onChip = chipsEl.querySelector(".chip.on");
   if (onChip){ const l=onChip.offsetLeft, r=l+onChip.offsetWidth; if (l<chipsEl.scrollLeft || r>chipsEl.scrollLeft+chipsEl.clientWidth) chipsEl.scrollTo({left:l-24,behavior:"smooth"}); }
 }
+// 絞り込みをURLに残す（?brand=AFUL&hot=1&sort=price）。共有したリンクから同じ状態で開ける
+const P = new URLSearchParams(location.search);
+const fromURL = P.has("brand")||P.has("hot")||P.has("sort");
+if (P.get("brand") && brandNames.includes(P.get("brand"))) state.brand = P.get("brand");
+if (P.get("hot")==="1") state.hotOnly = true;
+if (P.get("sort") && sorters[P.get("sort")]) state.sortBy = P.get("sort");
+function syncURL(){
+  const q = new URLSearchParams(location.search);
+  ["brand","hot","sort"].forEach(k=>q.delete(k));
+  if (state.brand!==ALL) q.set("brand", state.brand);
+  if (state.hotOnly) q.set("hot","1");
+  if (state.sortBy!=="rec") q.set("sort", state.sortBy);
+  const qs = q.toString();
+  history.replaceState(null, "", location.pathname + (qs?"?"+qs:"") + location.hash);
+}
+const _render = render;
+render = function(){ _render(); syncURL(); };
 render();
+if (fromURL) setTimeout(()=>document.getElementById("all").scrollIntoView(),400);
 document.getElementById("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;state.brand=b.dataset.b;render();scrollToList()});
 document.getElementById("hottg").addEventListener("click",()=>{state.hotOnly=!state.hotOnly;render();scrollToList()});
 document.getElementById("sort").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;state.sortBy=b.dataset.s;render();scrollToList()});
@@ -670,6 +745,7 @@ document.addEventListener("click",async e=>{
   const v=b.dataset.c;
   try{await navigator.clipboard.writeText(v)}catch(_){const t=document.createElement("textarea");t.value=v;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove()}
   document.querySelectorAll(`[data-c="${v}"]`).forEach(el=>{el.classList.add("done");const i=el.querySelector("i");if(i)i.textContent="コピー済み"});
+  const host=(typeof how!=="undefined"&&how.open)?how:document.body; if(toast.parentElement!==host) host.appendChild(toast);
   toast.textContent=`「${v}」をコピーしました`;toast.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove("show"),1600);
 });
 
@@ -697,6 +773,23 @@ function tick(){
   box.innerHTML=[[d,"DAYS"],[p(h),"HRS"],[p(m),"MIN"],[p(s),"SEC"]].map(([v,l])=>`<div class="b"><span class="num">${v}</span><small>${l}</small></div>`).join("");
 }
 tick();setInterval(tick,1000);
+
+/* クーポンの使い方シート */
+const how=document.getElementById("how"), fab=document.getElementById("fab");
+function openHow(){ if(how.open) return; how.classList.remove("closing"); if(how.showModal) how.showModal(); else how.setAttribute("open",""); document.body.classList.add("sheet-open"); }
+function closeHow(){ if(!how.open) return; if(reduce){ how.close(); return; } how.classList.add("closing"); setTimeout(()=>{ how.classList.remove("closing"); how.close(); }, 200); }
+how.addEventListener("close",()=>document.body.classList.remove("sheet-open"));
+how.addEventListener("cancel",e=>{ e.preventDefault(); closeHow(); });
+how.addEventListener("click",e=>{ if(e.target===how || e.target.closest("[data-close]")) closeHow(); });
+document.addEventListener("click",e=>{ const a=e.target.closest("[data-open-how],#fab"); if(!a) return; e.preventDefault(); openHow(); });
+// 下にスワイプで閉じる（スマホ）
+let sy=null; how.addEventListener("touchstart",e=>{ const inner=how.querySelector(".sheet-in"); if(inner.scrollTop<=0) sy=e.touches[0].clientY; },{passive:true});
+how.addEventListener("touchend",e=>{ if(sy!==null && e.changedTouches[0].clientY - sy > 80) closeHow(); sy=null; },{passive:true});
+// 一定量スクロールしたら右下にボタンを出す
+const showFab=()=>fab.classList.toggle("show", scrollY > 480);
+addEventListener("scroll",showFab,{passive:true}); showFab();
+// URLが #how のときは最初からシートを開く（Xなどから使い方を直接案内できる）
+if (location.hash==="#how") setTimeout(openHow, 300);
 </script>
 </body>
 </html>
