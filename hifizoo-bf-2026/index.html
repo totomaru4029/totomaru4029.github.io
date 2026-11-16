@@ -139,6 +139,50 @@ footer{padding:40px 0 60px;text-align:center;font-size:12px;color:var(--mute)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,40px);opacity:0;background:var(--tx);color:var(--bg);font-weight:700;font-size:14px;padding:10px 18px;border-radius:999px;transition:.25s;pointer-events:none;z-index:9}
 .toast.show{transform:translate(-50%,0);opacity:1}
 
+/* avatar */
+.eyebrow img{width:26px;height:26px;border-radius:50%;object-fit:cover;margin-left:-8px;border:1px solid #ffc24a77}
+.me .av{overflow:hidden;padding:2px}
+.me .av img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+
+/* sticky toolbar */
+.bar{position:sticky;top:0;z-index:5;margin:0 -20px;padding:12px 20px;background:#0b0b10e6;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar .t{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12px;color:var(--mute);font-weight:700;letter-spacing:.06em}
+.bar .t b{color:var(--tx);font-size:14px;letter-spacing:0}
+.bar .rows{display:flex;gap:10px;align-items:center}
+.bar .chips{flex:1;margin:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask:linear-gradient(90deg,#000 92%,transparent)}
+.bar .chips::-webkit-scrollbar{display:none}
+.chip{white-space:nowrap}
+.sort{display:flex;background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:3px;flex:none}
+.sort button{all:unset;cursor:pointer;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;color:var(--sub);white-space:nowrap}
+.sort button.on{background:var(--grad);color:#fff}
+.bar .how{font-size:12px;color:var(--gold);margin-left:auto;font-weight:700}
+
+/* 目玉 */
+.hot-h h2{display:flex;align-items:center;gap:10px}
+.fire{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--grad);font-size:22px;box-shadow:0 10px 30px -8px #ff3b5caa}
+.card.hot{border-color:#ff5b2e55;box-shadow:0 20px 60px -30px #ff3b5c88}
+.medama{position:absolute;bottom:12px;left:12px;font-size:12px;font-weight:900;letter-spacing:.06em;padding:5px 12px;border-radius:8px;background:#0b0b10dd;border:1px solid #ff5b2e;color:#fff;backdrop-filter:blur(4px)}
+.medama::before{content:"🔥 "}
+.grid .card.big{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:36px;align-items:center}
+.grid .card.big .thumb{margin:-20px 0 -20px -20px;aspect-ratio:1/1}
+.grid .card.big .body{display:flex;flex-direction:column;gap:18px;padding:6px 20px 6px 0;max-width:520px}
+.grid .card.big .name{font-size:30px}
+.grid .card.big .price .now{font-size:46px}
+.card .body{display:contents}
+.row.hot{border-color:#ff5b2e66;background:linear-gradient(90deg,#ff5b2e14,var(--card) 40%)}
+.pill{display:inline-block;font-size:10.5px;font-weight:900;padding:2px 8px;border-radius:999px;background:var(--grad);margin-left:6px;vertical-align:middle;letter-spacing:.04em}
+.empty{color:var(--mute);font-size:14px;padding:20px 0}
+@media (max-width:760px){
+  .bar{margin:0 -16px;padding:10px 16px}
+  .bar .rows{flex-direction:column;align-items:stretch}
+  .sort{align-self:flex-start}
+  .grid .card.big{grid-column:auto;display:flex}
+  .grid .card.big .thumb{margin:-20px -20px 0;height:auto;aspect-ratio:1/1}
+  .grid .card.big .body{display:contents}
+  .grid .card.big .name{font-size:22px}
+  .grid .card.big .price .now{font-size:34px}
+}
+
 @media (max-width:760px){
   .steps{grid-template-columns:1fr}
   .row{grid-template-columns:56px 1fr auto;gap:10px}
@@ -156,7 +200,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12px;color:var(--mute)}
 <div class="pr">【PR】HiFiZooさんからのご依頼で紹介しています。価格・クーポンは変わることがあります。</div>
 
 <header class="hero wrap">
-  <span class="eyebrow">HiFiZoo × ととまる</span>
+  <span class="eyebrow"><img src="img/avatar.jpg" alt="ととまる">HiFiZoo × ととまる</span>
   <h1><span class="g">BLACK</span><br>FRIDAY 2026</h1>
   <p class="lead">HiFiZooのセール対象のイヤホン・オーディオ機器を、<b>クーポン付き</b>でまとめました</p>
   <div class="maxoff"><span>クーポン2枚重ねで最大</span><span class="num" id="maxoff">45%</span><span>OFF</span></div>
@@ -176,6 +220,26 @@ footer{padding:40px 0 60px;text-align:center;font-size:12px;color:var(--mute)}
     </div></div>
   </section>
 
+  <div class="bar" id="bar">
+    <div class="t"><b>機種を選ぶ</b><span id="hit"></span><a class="how" href="#how">クーポンの使い方 ↓</a></div>
+    <div class="rows">
+      <div class="chips" id="chips"></div>
+      <div class="sort" id="sort">
+        <button data-s="rec" class="on">おすすめ順</button><button data-s="price">安い順</button><button data-s="off">割引率順</button>
+      </div>
+    </div>
+  </div>
+
+  <section id="pick">
+    <div class="h2 hot-h"><h2><span class="fire">🔥</span>目玉商品</h2><p>HiFiZooさんイチオシの特価ラインナップ</p></div>
+    <div class="grid" id="hot"></div>
+  </section>
+
+  <section id="all">
+    <div class="h2"><h2>すべての対象機種</h2><p id="allcount"></p></div>
+    <div class="list" id="list"></div>
+  </section>
+
   <section id="how">
     <div class="h2"><h2>使い方は3ステップ</h2><p>コードはタップするとコピーできます</p></div>
     <div class="steps">
@@ -185,20 +249,9 @@ footer{padding:40px 0 60px;text-align:center;font-size:12px;color:var(--mute)}
     </div>
   </section>
 
-  <section id="pick">
-    <div class="h2"><h2>注目の11機種</h2><p>今回とくにおすすめのラインナップ</p></div>
-    <div class="grid" id="hot"></div>
-  </section>
-
-  <section id="all">
-    <div class="h2"><h2>すべての対象機種</h2><p id="allcount"></p></div>
-    <div class="chips" id="chips"></div>
-    <div class="list" id="list"></div>
-  </section>
-
   <section>
     <div class="me">
-      <div class="av">🐈</div>
+      <div class="av"><img src="img/avatar.jpg" alt="ととまる"></div>
       <div>
         <b>ととまる</b>
         <p>オーディオに詳しくなかった人が、イヤホンの感想をnoteに書いています。レビューのある機種は「レビュー」から記事を読めます。</p>
@@ -233,39 +286,52 @@ function codeBtn(label,val){
   if(!val) return `<span class="code none"><small>${label}</small><span>なし</span></span>`;
   return `<button class="code" data-c="${esc(val)}"><small>${label}</small><span>${esc(val)}<i>コピー</i></span></button>`;
 }
-function card(x){
+function card(x,big){
   const thumb = x.img ? `<img src="${x.img}" alt="${esc(x.n)}" loading="lazy">` : `<span class="mono">${esc(x.b)}</span>`;
-  return `<article class="card ${x.h?'hot':''}">
-    <div class="thumb">${thumb}<span class="badge num">-${x.r}%</span>${x.rv?'<span class="rvtag">レビューあり</span>':''}</div>
+  return `<article class="card hot ${big?'big':''}">
+    <div class="thumb">${thumb}<span class="badge num">-${x.r}%</span>${x.rv?'<span class="rvtag">レビューあり</span>':''}<span class="medama">目玉商品</span></div>
+    <div class="body">
     <div><div class="brand">${esc(x.b)}</div><div class="name">${esc(x.n)}</div></div>
     <div class="price"><span class="now"><small>¥</small>${yen(x.f)}</span><s>¥${yen(x.p)}</s></div>
     <div class="codes">${codeBtn("ストアコード",x.s)}${codeBtn("AliExpressコード",x.a)}</div>
     <div class="acts"><a class="btn" href="${x.u}" target="_blank" rel="noopener sponsored">AliExpressで見る</a>${x.rv?`<a class="btn ghost" href="${x.rv}" target="_blank" rel="noopener">レビュー</a>`:''}</div>
+    </div>
   </article>`;
 }
 function row(x){
-  return `<div class="row">
+  return `<div class="row ${x.h?'hot':''}">
     <img class="tn" src="${x.img}" alt="" loading="lazy">
-    <div class="nm"><small>${esc(x.b)}</small><b>${esc(x.n)}${x.rv?` <a href="${x.rv}" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold)">レビュー→</a>`:''}</b></div>
+    <div class="nm"><small>${esc(x.b)}</small><b>${esc(x.n)}${x.h?'<span class="pill">目玉</span>':''}${x.rv?` <a href="${x.rv}" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold)">レビュー→</a>`:''}</b></div>
     <div class="pr2"><span class="num">¥${yen(x.f)}</span><em>-${x.r}%</em><small>通常 ¥${yen(x.p)}</small></div>
     <div class="codes">${codeBtn("ストア",x.s)}${codeBtn("AliExpress",x.a)}</div>
     <a class="btn" href="${x.u}" target="_blank" rel="noopener sponsored">見る</a>
   </div>`;
 }
 
-const items = window.ITEMS;
-document.getElementById("hot").innerHTML = items.filter(x=>x.h).map(card).join("");
+const items = window.ITEMS.map((x,i)=>({...x,i}));
 document.getElementById("maxoff").textContent = Math.max(...items.map(x=>x.r))+"%";
-document.getElementById("allcount").textContent = `${items.length}機種・ブランドで絞り込めます`;
 
-const brands = ["すべて",...new Set(items.map(x=>x.b))];
-let cur = "すべて";
-function renderList(){
+const brands = ["すべて","🔥 目玉のみ",...new Set(items.map(x=>x.b))];
+let cur = "すべて", sortBy = "rec";
+const sorters = {
+  rec:(a,b)=>(b.h-a.h)||(!!b.rv-!!a.rv)||(a.i-b.i),
+  price:(a,b)=>a.f-b.f,
+  off:(a,b)=>b.r-a.r
+};
+function render(){
   document.getElementById("chips").innerHTML = brands.map(b=>`<button class="chip ${b===cur?'on':''}" data-b="${esc(b)}">${esc(b)}</button>`).join("");
-  document.getElementById("list").innerHTML = items.filter(x=>cur==="すべて"||x.b===cur).map(row).join("");
+  const pass = x => cur==="すべて" || (cur==="🔥 目玉のみ" ? x.h : x.b===cur);
+  const list = items.filter(pass).sort(sorters[sortBy]);
+  const hot = list.filter(x=>x.h);
+  document.getElementById("pick").style.display = hot.length ? "" : "none";
+  document.getElementById("hot").innerHTML = hot.map((x,k)=>card(x, k===0 && sortBy==="rec" && hot.length>2)).join("");
+  document.getElementById("list").innerHTML = list.length ? list.map(row).join("") : '<p class="empty">該当する機種がありません</p>';
+  document.getElementById("hit").textContent = `${list.length}機種`;
+  document.getElementById("allcount").textContent = cur==="すべて" ? `全${items.length}機種` : `${cur}：${list.length}機種`;
 }
-renderList();
-document.getElementById("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;cur=b.dataset.b;renderList()});
+render();
+document.getElementById("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;cur=b.dataset.b;render()});
+document.getElementById("sort").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;sortBy=b.dataset.s;document.querySelectorAll("#sort button").forEach(x=>x.classList.toggle("on",x===b));render()});
 
 // copy
 const toast=document.getElementById("toast");let tt;
