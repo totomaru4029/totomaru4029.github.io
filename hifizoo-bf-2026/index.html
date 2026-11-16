@@ -96,12 +96,21 @@ section{padding:28px 0}
 .navbtn:hover{border-color:var(--or);color:var(--or);transform:scale(1.06)}
 .navbtn.l{left:-21px}.navbtn.r{right:-21px}
 @media (min-width:761px){
-  .rail{padding:10px 20px 22px;scroll-padding-left:20px;perspective:none;gap:26px}
-  .card{scroll-snap-align:start}
-  .rail-wrap::before{display:none}
-  .card:hover{transform:translateY(-6px)}
+  /* PC：3枚ちょうどを広めの間隔で並べ、矢印は見出しの右に置く */
+  .rail{margin:0;padding:12px 0 26px;scroll-padding-left:0;perspective:none;gap:32px}
+  .rail .card{flex:0 0 calc((100% - 64px)/3);scroll-snap-align:start}
+  .rail .card .thumb{background:radial-gradient(120% 120% at 50% 0%,#24242c,#141418);padding:16px 16px 44px}
+  .rail .card .thumb img{border-radius:12px;box-shadow:0 14px 30px -14px #000}
+  .rail-wrap::before,.rail-wrap::after{display:none}
+  .card:hover{transform:translateY(-6px);border-color:#ff7300aa}
   .card.active{border-color:#ff730033;box-shadow:0 22px 60px -34px #ff730088}
-  .card:hover{border-color:#ff7300aa}
+  .navbtn{top:-62px;width:40px;height:40px}
+  .navbtn.l{left:auto;right:50px}.navbtn.r{right:0}
+  #pick .h2 p{margin-right:112px}
+  #pick .h2 p .sw{display:none}
+}
+@media (min-width:761px) and (max-width:1000px){
+  .rail .card{flex-basis:calc((100% - 32px)/2)}
 }
 .dots{display:flex;justify-content:center;gap:6px;margin-top:2px}
 .dots i{width:6px;height:6px;border-radius:99px;background:var(--line);transition:width .3s;position:relative;overflow:hidden;cursor:pointer}
@@ -467,7 +476,7 @@ body.sheet-open{overflow:hidden}
 
 <main class="wrap">
   <section id="pick">
-    <div class="h2"><h2><span class="fire">🔥</span>目玉商品</h2><p><span id="pos" class="num" aria-live="polite">1 / 11</span>　スワイプで切り替え</p></div>
+    <div class="h2"><h2><span class="fire">🔥</span>目玉商品</h2><p><span id="pos" class="num" aria-live="polite">1 / 11</span><span class="sw">　スワイプで切り替え</span></p></div>
     <div class="rail-wrap">
       <button class="navbtn l" id="prev" aria-label="前の目玉商品">←</button>
       <div class="rail" id="rail" tabindex="0" role="region" aria-roledescription="カルーセル" aria-label="目玉商品（左右キーで切り替え）"></div>
@@ -602,7 +611,7 @@ const wide = () => innerWidth > 760;
 function layout(){
   raf = 0;
   const w = wide();
-  const mid = w ? rail.scrollLeft + 20 : rail.scrollLeft + rail.clientWidth/2;
+  const mid = w ? rail.scrollLeft + 2 : rail.scrollLeft + rail.clientWidth/2;
   let best = 0, bd = 1e9;
   cards.forEach((c,k)=>{
     const cc = w ? c.offsetLeft : c.offsetLeft + c.offsetWidth/2;
@@ -629,7 +638,7 @@ function go(k){
   // PCで右端まで来ていたら先頭に戻す
   if (wide() && k > active && rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 2) k = 0;
   const t = cards[k];
-  const left = wide() ? t.offsetLeft - 20 : t.offsetLeft - (rail.clientWidth - t.offsetWidth)/2;
+  const left = wide() ? t.offsetLeft : t.offsetLeft - (rail.clientWidth - t.offsetWidth)/2;
   rail.scrollTo({left, behavior: reduce ? "auto" : "smooth"});
 }
 rail.addEventListener("scroll",()=>{ if(!raf) raf = requestAnimationFrame(layout) },{passive:true});
