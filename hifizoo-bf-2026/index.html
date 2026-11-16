@@ -17,8 +17,8 @@
 :root{
   --bg:#0a0a0c;--bg2:#121216;--card:#16161b;--card2:#1c1c22;--line:#2a2a33;
   --tx:#f5f4f2;--sub:#a8a6ae;--mute:#6e6c76;
-  --or:#ff7300;--pk:#ff2e6e;--gold:#ffc24a;--ok:#3ddc97;
-  --grad:linear-gradient(115deg,var(--or),var(--pk));
+  --or:#ff7300;--pk:#ff9a2e;--gold:#ffc24a;--ok:#3ddc97;
+  --grad:linear-gradient(115deg,#ff6a00,var(--or) 45%,var(--pk));
   --r:20px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -30,7 +30,7 @@ button{font:inherit;color:inherit}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 .glow{position:fixed;inset:-20vmax;z-index:-1;pointer-events:none;
   background:radial-gradient(38vmax 28vmax at 12% 6%,#ff730033,transparent 60%),
-             radial-gradient(36vmax 28vmax at 92% 18%,#ff2e6e22,transparent 60%),
+             radial-gradient(36vmax 28vmax at 92% 18%,#ff730018,transparent 60%),
              radial-gradient(50vmax 40vmax at 50% 110%,#ff73001a,transparent 60%)}
 .logo{mix-blend-mode:screen;display:block}
 
@@ -58,7 +58,7 @@ html,body{overflow-x:clip}
 .hero .lead b{color:var(--tx)}
 .stats{display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
 .hero > div:first-of-type{position:relative;z-index:1}
-.maxoff{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px;border-radius:var(--r);background:var(--grad);box-shadow:0 24px 60px -24px #ff5a2acc}
+.maxoff{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px;border-radius:var(--r);background:var(--grad);box-shadow:0 24px 60px -24px #ff7300aa}
 .maxoff span{font-weight:900;font-size:14px;line-height:1.35}
 .maxoff .num{font-size:54px;line-height:1;font-weight:900}
 .maxoff .num small{font-size:22px}
@@ -75,7 +75,7 @@ section{padding:28px 0}
 .h2{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:16px}
 .h2 h2{font-size:clamp(22px,3.6vw,32px);font-weight:900;line-height:1.2;display:flex;align-items:center;gap:10px}
 .h2 p{color:var(--sub);font-size:13px}
-.fire{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--grad);font-size:20px;box-shadow:0 10px 30px -10px #ff5a2acc}
+.fire{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--grad);font-size:20px;box-shadow:0 10px 30px -10px #ff7300aa}
 
 /* carousel (center mode + coverflow) */
 .rail-wrap{position:relative;--cw:268px}
@@ -92,7 +92,7 @@ section{padding:28px 0}
   .card{scroll-snap-align:start}
   .rail-wrap::before{display:none}
   .card:hover{transform:translateY(-6px)}
-  .card.active{border-color:#ff730033;box-shadow:0 22px 60px -34px #ff5a2aaa}
+  .card.active{border-color:#ff730033;box-shadow:0 22px 60px -34px #ff730088}
   .card:hover{border-color:#ff7300aa}
 }
 .dots{display:flex;justify-content:center;gap:6px;margin-top:2px}
@@ -104,7 +104,7 @@ section{padding:28px 0}
 
 .card{flex:0 0 var(--cw);scroll-snap-align:center;position:relative;background:var(--card);border:1px solid #ff730033;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;
   transform:perspective(900px) rotateY(var(--ry,0deg)) scale(var(--sc,1));opacity:var(--op,1);transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .45s,box-shadow .45s,border-color .45s;will-change:transform}
-.card.active{border-color:#ff7300aa;box-shadow:0 26px 60px -26px #ff5a2acc,0 0 0 1px #ff730055}
+.card.active{border-color:#ff7300aa;box-shadow:0 26px 60px -26px #ff7300aa,0 0 0 1px #ff730055}
 .card .thumb{aspect-ratio:1/1;position:relative;background:#111;overflow:hidden}
 .card .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 6s ease}
 .card.active .thumb img{transform:scale(1.06)}
@@ -127,7 +127,9 @@ section{padding:28px 0}
 .card .codes{gap:5px}
 .card .codes .code{padding:5px 5px}
 .card .codes .code b{font-size:11px;letter-spacing:0}
-.card .acts .btn{padding:9px;font-size:13px;border-radius:10px}
+.card .acts{flex-direction:column;gap:6px}
+.card .acts .btn{padding:0 9px;font-size:13px;border-radius:10px;flex:none;width:100%}
+.card .acts .btn.ghost{border-color:#ffc24a88;color:var(--gold)}
 
 /* reveal */
 .rv-in{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
@@ -187,20 +189,81 @@ section{padding:28px 0}
 
 /* list */
 .list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
-.item{display:grid;grid-template-columns:76px 1fr auto;grid-template-areas:"tn info go" "codes codes codes";gap:10px 12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
+.item{display:grid;grid-template-columns:76px 1fr;grid-template-areas:"tn info" "codes codes" "acts acts";gap:10px 12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
 .item.hot{border-color:#ff730055;background:linear-gradient(100deg,#ff730014,var(--card) 45%)}
-.item .tn{grid-area:tn;width:76px;height:76px;border-radius:12px;object-fit:cover;background:#111}
+.item .tn{grid-area:tn;width:76px;height:76px;border-radius:12px;object-fit:contain;background:#fff}
 .item .info{grid-area:info;min-width:0}
-.item .nm{font-weight:900;font-size:15.5px;line-height:1.3}
-.item .pill{display:inline-block;font-size:10px;font-weight:900;padding:1px 7px;border-radius:999px;background:var(--grad);margin-left:4px;vertical-align:2px}
-.item .rv{font-size:11px;color:var(--gold);font-weight:700;margin-left:4px}
-.item .pr{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin-top:2px;padding:0;border:0;text-align:left;font-size:inherit;color:inherit}
+.item .brand{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px}
+.item .nm{font-weight:900;font-size:15.5px;line-height:1.3;overflow-wrap:anywhere}
+.item .pill{display:inline-block;font-family:"Zen Kaku Gothic New";font-size:10px;font-weight:900;letter-spacing:0;padding:1px 7px;border-radius:999px;background:var(--grad);color:#fff;text-transform:none}
+.rvp{display:inline-block;font-family:"Zen Kaku Gothic New";font-size:10px;font-weight:900;letter-spacing:0;padding:0 7px;border-radius:999px;border:1px solid var(--gold);color:var(--gold);text-transform:none}
+.item .pr{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin-top:2px;padding:0;border:0;text-align:left;font-size:inherit;color:inherit;white-space:normal}
 .item .pr .num{font-weight:900;font-size:21px}
 .item .pr em{font-style:normal;color:var(--or);font-weight:900;font-family:"Outfit";font-size:13px}
 .item .pr s{font-size:11.5px;color:var(--mute);font-family:"Outfit"}
-.item .go{grid-area:go;font-weight:900;font-size:13px;padding:9px 14px;border-radius:10px;background:var(--grad);white-space:nowrap}
-.item .codes{grid-area:codes}
-.empty{color:var(--mute);font-size:14px;padding:20px 0}
+.item .codes-w{grid-area:codes}
+.iacts{grid-area:acts;display:flex;gap:8px}
+.iacts .go,.iacts .go2{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:900;font-size:14px;padding:0 14px;border-radius:12px;white-space:nowrap}
+.iacts .go{flex:1;background:var(--grad)}
+.iacts .go2{flex:none;border:1px solid var(--gold);color:var(--gold)}
+.iacts .go:hover{filter:brightness(1.08)}
+.empty{color:var(--sub);font-size:14px;padding:24px 16px;text-align:center;grid-column:1/-1;border:1px dashed var(--line);border-radius:16px}
+.empty p{margin-bottom:12px}
+.reset{all:unset;cursor:pointer;font-weight:900;font-size:13px;padding:10px 18px;min-height:24px;border-radius:999px;background:var(--tx);color:var(--bg)}
+.reset.sm{padding:4px 12px;font-size:12px;margin-left:8px}
+.fstate{grid-column:1/-1;font-size:12.5px;color:var(--sub);display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+
+/* ---- CRO additions ---- */
+.ext{width:13px;height:13px;flex:none;margin-left:4px;vertical-align:-1px}
+.btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.when{margin-top:12px;font-size:13px;color:var(--tx);display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.when .wl{font-size:11px;font-weight:900;color:var(--or);border:1px solid #ff730077;border-radius:999px;padding:1px 9px}
+.hcta{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.cta,.cta2{min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:0 18px;border-radius:999px;font-weight:900;font-size:14px}
+.cta{background:var(--grad);box-shadow:0 14px 34px -16px #ff7300aa}
+.cta2{border:1px solid var(--line);color:var(--sub)}
+.cta:hover{filter:brightness(1.08)}.cta2:hover{border-color:var(--or);color:var(--tx)}
+.cd .live{color:var(--ok);font-weight:900}
+.cd .endmsg{font-size:13px;color:var(--sub)}
+.allhot{display:flex;justify-content:center;margin-top:12px}
+.allhot-btn{all:unset;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;padding:0 18px;border-radius:999px;border:1px solid #ff730077;font-weight:900;font-size:13.5px;background:#ff73000d}
+.allhot-btn:hover,.allhot-btn:focus-visible{background:#ff73001f}
+.buy{margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px}
+.buy-q{font-weight:900;font-size:15px}
+.buy-q span{font-size:12px;color:var(--sub);font-weight:700}
+.buy-steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 8px}
+.buy-steps li{position:relative;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:8px 10px;display:flex;flex-direction:column;line-height:1.35}
+.buy-steps li b{font-family:"Outfit";color:var(--or);font-size:14px}
+.buy-steps li span{font-weight:900;font-size:13px}
+.buy-steps li small{font-size:10.5px;color:var(--mute)}
+.buy-steps li.v{border-color:#ffc24a88;background:#ffc24a0d}.buy-steps li.v b{color:var(--gold)}
+.buy-steps li:not(:last-child)::after{content:"＋";position:absolute;right:-12px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--mute);z-index:1}
+.buy-n{font-size:12px;color:var(--sub)}
+.buy-n a{color:var(--gold);font-weight:700;margin-left:4px}
+.plbl{font-size:10px;color:var(--sub);font-weight:700;margin-bottom:2px}
+.noz{font-size:11px;color:var(--mute);margin-top:2px}
+.codes-h{display:flex;justify-content:space-between;align-items:baseline;font-size:10.5px;font-weight:900;color:var(--sub);margin-bottom:4px}
+.codes-h span{font-weight:500;color:var(--mute);font-size:10px}
+.card .codes-h{margin-bottom:3px}
+.row2{display:flex;align-items:center;gap:8px}
+.hottg{all:unset;cursor:pointer;flex:none;display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:900;padding:0 12px;min-height:34px;border-radius:999px;border:1px solid #ff730077;color:var(--tx);white-space:nowrap}
+.hottg i{width:26px;height:15px;border-radius:99px;background:var(--line);position:relative;transition:.2s}
+.hottg i::after{content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:#fff;transition:.2s}
+.hottg.on{background:#ff730022;border-color:var(--or)}
+.hottg.on i{background:var(--or)}.hottg.on i::after{left:13px}
+.chips-w{position:relative;flex:1;min-width:0}
+.chips-w .chips{-webkit-mask:none;mask:none}
+.chips-w::before,.chips-w::after{content:"";position:absolute;top:0;bottom:0;width:34px;pointer-events:none;opacity:0;transition:.2s;z-index:1}
+.chips-w::before{left:0;background:linear-gradient(90deg,#0a0a0c,transparent)}
+.chips-w::after{right:0;background:linear-gradient(270deg,#0a0a0c 40%,transparent);content:"›";color:var(--sub);font-size:20px;display:flex;align-items:center;justify-content:flex-end;padding-right:2px}
+.chips-w.more::after,.chips-w.less::before{opacity:1}
+.chip{display:inline-flex;align-items:center;gap:5px;min-height:34px;padding:0 13px!important}
+.chip .cn{font-family:"Outfit";font-size:11px;font-weight:800;color:var(--mute)}
+.chip.on{background:var(--grad)!important;color:#fff!important;border-color:transparent!important;box-shadow:0 6px 18px -8px #ff7300aa}
+.chip.on .cn{color:#ffffffcc}
+.chip.zero{opacity:.4}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.rail:focus-visible{outline-offset:-2px;border-radius:12px}
 
 /* how / me / notes */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
@@ -231,7 +294,7 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
   .top{padding:12px 0}
   .collab .logo{height:20px}
   .top .xlink{display:none}
-  .pr{font-size:10px;padding:5px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pr{font-size:11px;padding:6px 12px;line-height:1.5}
   .hero{grid-template-columns:1fr;padding:4px 0 2px;gap:10px}
   .hero .mark{width:110px;right:0;top:-18px}
   .hero h1{font-size:clamp(34px,10.4vw,44px);margin:4px 0 2px;white-space:nowrap}
@@ -242,7 +305,7 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
   #pick .h2{margin-bottom:6px}
   .fire{width:32px;height:32px;font-size:17px;border-radius:10px}
   .stats{flex-direction:row;gap:8px}
-  .maxoff{flex:1;flex-direction:row;align-items:center;gap:6px;padding:8px 12px;border-radius:14px;box-shadow:0 14px 30px -18px #ff5a2acc}
+  .maxoff{flex:1;flex-direction:row;align-items:center;gap:6px;padding:8px 12px;border-radius:14px;box-shadow:0 14px 30px -18px #ff7300aa}
   .maxoff span{font-size:10px;line-height:1.3}
   .maxoff .num{font-size:28px}
   .maxoff .num small{font-size:12px}
@@ -273,18 +336,56 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
   #vip{padding:10px 0}
   .bar{margin:0 -16px;padding:8px 16px}
   .bar .row1 b{font-size:13.5px;white-space:nowrap}
-  .bar .row1 span{display:none}
+  .bar .row1 span{font-size:11px;color:var(--or);font-weight:700;white-space:nowrap}
   .vip h2{font-size:19px}
   .steps{grid-template-columns:1fr 1fr}
-  .item{grid-template-columns:64px 1fr auto;padding:10px}
+  .item{grid-template-columns:64px 1fr;padding:10px}
+  .when{margin-top:6px;font-size:11.5px;gap:6px}
+  .when .wl{font-size:10px}
+  .hcta{margin-top:8px;flex-wrap:nowrap}
+  .hcta a{flex:1;font-size:13px;padding:0 10px}
+  .buy{padding:12px}
+  .buy-q{font-size:14px}.buy-q span{display:block;font-size:11px}
+  .buy-steps{gap:10px}
+  .buy-steps li{padding:7px 8px}
+  .buy-steps li span{font-size:11px;letter-spacing:-.02em;overflow-wrap:anywhere}
+  .row2{gap:6px}
+  .hottg{padding:0 10px;font-size:12px}
+  .iacts .go2{padding:0 12px;font-size:13px}
   .item .tn{width:64px;height:64px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+/* 小さい画面向けの詰め */
+.pr .ps{display:none}
+@media (max-width:760px){ .card .codes .code{padding:5px 4px} .card .codes .code b{font-size:10.2px} .pr .pl{display:none} .pr .ps{display:inline} .kick{display:none} .rail-wrap{--cw:min(57vw,216px)} }
+@media (max-width:360px){ .pr{font-size:10.5px} }
+@media (max-width:760px){
+  .card .codes-h,.card .noz{display:none}
+  .card .plbl{font-size:9.5px;margin-bottom:1px}
+  .card .body{gap:7px;padding:10px 12px 12px}
+  .card .acts{gap:5px}
+  .when{display:none}
+  .cd .period{display:block;font-size:10px;margin-top:2px}
+  .bar .row1{flex-wrap:wrap;row-gap:6px}
+}
+@media (max-width:360px){
+  .rail-wrap{--cw:min(64vw,236px)}
+  .card .codes{grid-template-columns:1fr 1fr}
+  .card .codes .vipc{grid-column:1/-1}
+  .vip h2{white-space:normal!important;font-size:15px!important}
+  .vipcode{padding:6px 9px}
+  .vipcode b{font-size:16px}
+  .sort button{padding:5px 8px}
+  .hcta a{font-size:12px;padding:0 6px}
+  .maxoff span{font-size:9px}
+  .maxoff .num{font-size:24px}
+}
 </style>
 </head>
 <body>
 <div class="glow"></div>
-<div class="pr">【PR】HiFiZooさんからのご依頼で紹介しています。HiFiZoo公式のページではありません。</div>
+<div class="pr" role="note"><span class="pl">【PR】HiFiZooさんからのご依頼で、ととまるが作成した紹介ページです（HiFiZoo公式ページではありません）。</span><span class="ps">【PR】HiFiZooさんの依頼で作成（公式ページではありません）</span></div>
 
 <div class="wrap">
   <div class="top">
@@ -302,6 +403,11 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
       <span class="kick">HIFIZOO SALE 2026</span>
       <h1><span class="g">BLACK</span><br class="dk"><span class="sp"> </span>FRIDAY</h1>
       <p class="lead">セール対象のイヤホン・オーディオ機器を、<b>クーポン付き</b>でまとめました</p>
+      <p class="when"><span class="wl">開催期間</span><span id="when"></span></p>
+      <div class="hcta">
+        <a class="cta" href="#pick">🔥 目玉商品を見る</a>
+        <a class="cta2" href="#how">クーポンの使い方</a>
+      </div>
     </div>
     <div class="stats">
       <div class="maxoff"><span>クーポン<br>3枚重ねで最大</span><span class="num" id="maxoff">64<small>%OFF</small></span></div>
@@ -312,13 +418,14 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
 
 <main class="wrap">
   <section id="pick">
-    <div class="h2"><h2><span class="fire">🔥</span>目玉商品</h2><p><span id="pos" class="num">1 / 11</span>　スワイプで切り替え</p></div>
+    <div class="h2"><h2><span class="fire">🔥</span>目玉商品</h2><p><span id="pos" class="num" aria-live="polite">1 / 11</span>　スワイプで切り替え</p></div>
     <div class="rail-wrap">
-      <button class="navbtn l" id="prev" aria-label="前へ">←</button>
-      <div class="rail" id="rail"></div>
-      <button class="navbtn r" id="next" aria-label="次へ">→</button>
+      <button class="navbtn l" id="prev" aria-label="前の目玉商品">←</button>
+      <div class="rail" id="rail" tabindex="0" role="region" aria-roledescription="カルーセル" aria-label="目玉商品（左右キーで切り替え）"></div>
+      <button class="navbtn r" id="next" aria-label="次の目玉商品">→</button>
     </div>
     <div class="dots" id="dots"></div>
+    <div class="allhot"><button class="allhot-btn" id="allhot">🔥 すべての目玉商品を一覧で見る（<span id="hotn">11</span>件）↓</button></div>
   </section>
 
   <section id="vip">
@@ -326,18 +433,30 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
       <div>
         <span class="tag">ととまるフォロワー限定</span>
         <h2><span class="num">$5 OFF</span> 専用クーポン</h2>
-        <p><b>全クーポンと併用OK</b>・11/19〜12/3<span class="dt">。このページの価格は、TOTOTOまで使った最終価格です。</span></p>
+        <p><b>全クーポンと併用OK</b>・11/19〜12/3<span class="dt">。このページの価格は、TOTOTOまで使った「クーポン適用後の参考価格」です。</span></p>
       </div>
-      <button class="vipcode" data-c="TOTOTO"><small>COUPON CODE</small><b>TOTOTO</b><i>タップでコピー</i></button>
+      <button class="vipcode" data-c="TOTOTO" aria-label="クーポンコード TOTOTO をコピー"><small>COUPON CODE</small><b>TOTOTO</b><i>タップでコピー</i></button>
     </div></div>
+    <div class="buy">
+      <p class="buy-q">この価格で購入するには？　<span>3つのクーポンを全部使います</span></p>
+      <ol class="buy-steps">
+        <li><b>①</b><span>ストアコード</span><small>商品ごとに違う</small></li>
+        <li><b>②</b><span>AliExpressコード</span><small>JPBF〜</small></li>
+        <li class="v"><b>③</b><span>TOTOTO</span><small>フォロワー限定</small></li>
+      </ol>
+      <p class="buy-n">各商品のコードはタップでコピーできます。<a href="#how">くわしい使い方 ↓</a></p>
+    </div>
   </section>
 
   <section id="all" style="padding-top:6px">
     <div class="bar">
-      <div class="row1"><b>すべての対象機種</b><span id="hit"></span>
-        <div class="sort" id="sort"><button data-s="rec" class="on">おすすめ</button><button data-s="price">安い順</button><button data-s="off">割引率</button></div>
+      <div class="row1"><b>対象機種</b><span id="hit" aria-live="polite"></span>
+        <div class="sort" id="sort" role="group" aria-label="並び替え"><button data-s="rec" class="on" aria-pressed="true">おすすめ</button><button data-s="price" aria-pressed="false">安い順</button><button data-s="off" aria-pressed="false">割引率</button></div>
       </div>
-      <div class="chips" id="chips"></div>
+      <div class="row2">
+        <button class="hottg" id="hottg" aria-pressed="false"><i></i>🔥 目玉のみ</button>
+        <div class="chips-w"><div class="chips" id="chips" role="group" aria-label="ブランドで絞り込み"></div></div>
+      </div>
     </div>
     <div class="list" id="list"></div>
   </section>
@@ -345,10 +464,10 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
   <section id="how">
     <div class="h2"><h2>クーポンの使い方</h2><p>コードはタップでコピー</p></div>
     <div class="steps">
-      <div class="step"><div class="n">STEP 01</div><h3>商品ページを開く</h3><p>「AliExpressで見る」から商品ページへ。</p></div>
-      <div class="step"><div class="n">STEP 02</div><h3>ストアコード</h3><p>注文画面の「ストアクーポン」欄に入力。</p></div>
-      <div class="step"><div class="n">STEP 03</div><h3>AliExpressコード</h3><p>支払い前に、JPBF〜のコードを入力。</p></div>
-      <div class="step vipstep"><div class="n">STEP 04</div><h3>TOTOTO も入れる</h3><p>フォロワー限定 $5 OFF。3枚重ねでこのページの価格に。</p></div>
+      <div class="step"><div class="n">STEP 01</div><h3>商品ページを開く</h3><p>「AliExpressで見る」からAliExpressの商品ページへ移動します。</p></div>
+      <div class="step"><div class="n">STEP 02</div><h3>① ストアコード</h3><p>商品ごとに違うコードです。注文画面の「ストアクーポン」欄に入力します。</p></div>
+      <div class="step"><div class="n">STEP 03</div><h3>② AliExpressコード</h3><p>JPBF〜で始まるコードです。支払い前のクーポン欄に入力します。</p></div>
+      <div class="step vipstep"><div class="n">STEP 04</div><h3>③ TOTOTO</h3><p>フォロワー限定の$5 OFF。①②と併用できます。3つ使うと、このページの参考価格になります。</p></div>
     </div>
   </section>
 
@@ -357,7 +476,7 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
       <img src="img/avatar.jpg" alt="ととまる">
       <div>
         <b>ととまる</b>
-        <p>オーディオに詳しくなかった人が、イヤホンの感想をnoteに書いています。「レビュー」の付いた機種は記事で詳しく読めます。</p>
+        <p>オーディオに詳しくなかった人が、イヤホンの感想をnoteに書いています。「実機レビューあり」の機種は、「レビューを読む」から記事を読めます。</p>
         <div class="links"><a href="https://x.com/totomaru4029" target="_blank" rel="noopener">X @totomaru4029</a><a href="https://note.com/large_pony1261" target="_blank" rel="noopener">note</a></div>
       </div>
     </div>
@@ -365,6 +484,7 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
 
   <section>
     <ul class="notes">
+      <li>表示価格は、①ストアコード・②AliExpressコード・③TOTOTOの3つを使った場合の<b>クーポン適用後の参考価格</b>です。「TOTOTOなし」は①②だけを使った場合の参考価格です。</li>
       <li>円の価格は目安です（1ドル＝160円で計算。TOTOTOの$5は約800円）。実際の支払額は為替やAliExpressの表示で変わります。</li>
       <li>クーポンは先着や枚数、利用条件がある場合があります。</li>
       <li>価格・在庫・クーポン内容は予告なく変わることがあります。購入前に商品ページで確認してください。</li>
@@ -374,7 +494,7 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
 </main>
 
 <footer><img class="logo" src="img/hifizoo-logo.png" alt="HiFiZoo">© ととまる　｜　Prices as of Nov 2026</footer>
-<div class="toast" id="toast">コピーしました</div>
+<div class="toast" id="toast" role="status" aria-live="polite">コピーしました</div>
 
 <script src="data.js"></script>
 <script>
@@ -385,22 +505,28 @@ const yen = n => n.toLocaleString("ja-JP");
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
 const items = window.ITEMS.map((x,i)=>({...x,i}));
 
+const EXT = `<svg class="ext" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 function codeBtn(label,val){
   if(!val) return `<span class="code none"><small>${label}</small><b>なし</b></span>`;
-  return `<button class="code" data-c="${esc(val)}"><small>${label}</small><b>${esc(val)}</b></button>`;
+  return `<button class="code" data-c="${esc(val)}" aria-label="${label} ${esc(val)} をコピー"><small>${label}</small><b>${esc(val)}</b></button>`;
 }
-const vipBtn = () => `<button class="code vipc" data-c="TOTOTO"><small>限定</small><b>TOTOTO</b></button>`;
-const codes = x => `<div class="codes">${codeBtn("ストア",x.s)}${codeBtn("AliExpress",x.a)}${vipBtn()}</div>`;
+const vipBtn = () => `<button class="code vipc" data-c="TOTOTO" aria-label="③限定 TOTOTO をコピー"><small>③限定</small><b>TOTOTO</b></button>`;
+const codes = x => `<div class="codes-w"><div class="codes-h">使うクーポン<span>タップでコピー</span></div><div class="codes">${codeBtn("①ストア",x.s)}${codeBtn("②AliExpress",x.a)}${vipBtn()}</div></div>`;
+const shopBtn = (x,cls="btn") => `<a class="${cls}" href="${x.u}" target="_blank" rel="noopener sponsored" aria-label="${esc(x.n)}をAliExpressで見る（外部サイト）">AliExpressで見る${EXT}</a>`;
+const revBtn = (x,cls="btn ghost") => x.rv ? `<a class="${cls}" href="${x.rv}" target="_blank" rel="noopener" aria-label="${esc(x.n)}の実機レビューを読む（note）">レビューを読む</a>` : "";
+const noZ = x => x.f; // TOTOTOを使わない場合（①②のみ）の参考価格
 
 /* 目玉カルーセル */
 function card(x){
   return `<article class="card">
-    <div class="thumb"><img src="${x.img}" alt="${esc(x.n)}" loading="lazy"><span class="badge num">-${x.rz}%</span>${x.rv?'<span class="rvtag">レビューあり</span>':''}<span class="medama">🔥 目玉商品</span></div>
+    <div class="thumb"><img src="${x.img}" alt="${esc(x.n)}" loading="lazy"><span class="badge num">-${x.rz}%</span>${x.rv?'<span class="rvtag">実機レビューあり</span>':''}<span class="medama">🔥 目玉商品</span></div>
     <div class="body">
       <div><div class="brand">${esc(x.b)}</div><div class="name">${esc(x.n)}</div></div>
-      <div class="price"><span class="now"><small>¥</small>${yen(x.fz)}</span><s>¥${yen(x.p)}</s><span class="ztag">TOTOTO込み</span></div>
+      <div><div class="plbl">クーポン適用後の参考価格</div>
+      <div class="price"><span class="now"><small>¥</small>${yen(x.fz)}</span><s>¥${yen(x.p)}</s></div>
+      <div class="noz">TOTOTOなし ¥${yen(noZ(x))}</div></div>
       ${codes(x)}
-      <div class="acts"><a class="btn" href="${x.u}" target="_blank" rel="noopener sponsored">AliExpressで見る</a>${x.rv?`<a class="btn ghost" href="${x.rv}" target="_blank" rel="noopener">レビュー</a>`:''}</div>
+      <div class="acts">${shopBtn(x)}${revBtn(x)}</div>
     </div>
   </article>`;
 }
@@ -454,6 +580,7 @@ rail.addEventListener("scroll",()=>{ if(!raf) raf = requestAnimationFrame(layout
 addEventListener("resize",()=>{ if(!raf) raf = requestAnimationFrame(layout) });
 document.getElementById("prev").onclick = () => { go(active-1); hold(); };
 document.getElementById("next").onclick = () => { go(active+1); hold(); };
+rail.addEventListener("keydown",e=>{ if(e.key==="ArrowRight"){e.preventDefault();go(active+1);hold();} else if(e.key==="ArrowLeft"){e.preventDefault();go(active-1);hold();} });
 dotsEl.addEventListener("click",e=>{ const d=e.target.closest("i"); if(!d) return; go(+d.dataset.k); hold(); });
 cards.forEach((c,k)=>c.addEventListener("click",e=>{ if(k!==active && !e.target.closest("a,button")){ e.preventDefault(); go(k); hold(); } }));
 
@@ -478,30 +605,61 @@ const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.
 if (matchMedia("(prefers-reduced-motion:reduce)").matches) document.documentElement.classList.add("rm");
 function item(x){
   return `<div class="item rv-in ${x.h?'hot':''}">
-    <img class="tn" src="${x.img}" alt="" loading="lazy">
+    <img class="tn" src="${x.img}" alt="${esc(x.n)}" loading="lazy">
     <div class="info">
-      <div class="brand">${esc(x.b)}</div>
-      <div class="nm">${esc(x.n)}${x.h?'<span class="pill">目玉</span>':''}${x.rv?`<a class="rv" href="${x.rv}" target="_blank" rel="noopener">レビュー→</a>`:''}</div>
+      <div class="brand">${esc(x.b)}${x.h?'<span class="pill">🔥目玉</span>':''}${x.rv?'<span class="rvp">実機レビューあり</span>':''}</div>
+      <div class="nm">${esc(x.n)}</div>
       <div class="pr"><span class="num">¥${yen(x.fz)}</span><em>-${x.rz}%</em><s>¥${yen(x.p)}</s></div>
+      <div class="noz">参考価格・TOTOTOなし ¥${yen(noZ(x))}</div>
     </div>
-    <a class="go" href="${x.u}" target="_blank" rel="noopener sponsored">見る</a>
     ${codes(x)}
+    <div class="iacts">${shopBtn(x,"go")}${revBtn(x,"go2")}</div>
   </div>`;
 }
-const brands = ["すべて","🔥 目玉",...new Set(items.map(x=>x.b))];
-let cur="すべて", sortBy="rec";
+
+/* 絞り込み・並び替え（ブランド × 目玉のみ × 並び順） */
+const ALL = "すべて";
+const brandNames = [...new Set(items.map(x=>x.b))];
+const state = { brand: ALL, hotOnly: false, sortBy: "rec" };
 const sorters = {rec:(a,b)=>(b.h-a.h)||(!!b.rv-!!a.rv)||(a.i-b.i), price:(a,b)=>a.fz-b.fz, off:(a,b)=>b.rz-a.rz};
+const passBrand = (x,b) => b===ALL || x.b===b;
+const passHot = x => !state.hotOnly || x.h;
 function render(){
-  document.getElementById("chips").innerHTML = brands.map(b=>`<button class="chip ${b===cur?'on':''}" data-b="${esc(b)}">${esc(b)}</button>`).join("");
-  const list = items.filter(x=>cur==="すべて"||(cur==="🔥 目玉"?x.h:x.b===cur)).sort(sorters[sortBy]);
-  document.getElementById("list").innerHTML = list.length ? list.map(item).join("") : '<p class="empty">該当する機種がありません</p>';
-  document.getElementById("hit").textContent = `${list.length}機種`;
+  const chipsEl = document.getElementById("chips");
+  chipsEl.innerHTML = [ALL,...brandNames].map(b=>{
+    const n = items.filter(x=>passBrand(x,b)&&passHot(x)).length;
+    const on = b===state.brand;
+    return `<button class="chip ${on?'on':''} ${n?'':'zero'}" data-b="${esc(b)}" aria-pressed="${on}">${esc(b)}<span class="cn">${n}</span></button>`;
+  }).join("");
+  const tg = document.getElementById("hottg");
+  tg.classList.toggle("on", state.hotOnly); tg.setAttribute("aria-pressed", state.hotOnly);
+  document.querySelectorAll("#sort button").forEach(x=>{ const on=x.dataset.s===state.sortBy; x.classList.toggle("on",on); x.setAttribute("aria-pressed",on); });
+
+  const list = items.filter(x=>passBrand(x,state.brand)&&passHot(x)).sort(sorters[state.sortBy]);
+  const label = [state.brand===ALL?"":state.brand, state.hotOnly?"目玉":""].filter(Boolean).join("・") || "すべて";
+  document.getElementById("hit").textContent = `${label}：${list.length}件`;
+  const filtered = state.brand!==ALL || state.hotOnly;
+  document.getElementById("list").innerHTML = list.length
+    ? list.map(item).join("")
+    : `<div class="empty"><p>「${esc(label)}」に当てはまる機種はありません。</p><button class="reset" data-reset>絞り込みを解除する</button></div>`;
+  if (list.length && filtered) document.getElementById("list").insertAdjacentHTML("afterbegin", `<div class="fstate">${esc(label)}で絞り込み中（${list.length}件）<button class="reset sm" data-reset>解除</button></div>`);
   document.querySelectorAll("#list .rv-in").forEach((el,k)=>{ el.style.transitionDelay = (k%2)*60+"ms"; io.observe(el); });
+  // 選択中のブランドが横スクロールの外に隠れないようにする（ページは縦に動かさない）
+  const onChip = chipsEl.querySelector(".chip.on");
+  if (onChip){ const l=onChip.offsetLeft, r=l+onChip.offsetWidth; if (l<chipsEl.scrollLeft || r>chipsEl.scrollLeft+chipsEl.clientWidth) chipsEl.scrollTo({left:l-24,behavior:"smooth"}); }
 }
 render();
-document.getElementById("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;cur=b.dataset.b;render();scrollToList()});
-document.getElementById("sort").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;sortBy=b.dataset.s;document.querySelectorAll("#sort button").forEach(x=>x.classList.toggle("on",x===b));render();scrollToList()});
+document.getElementById("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;state.brand=b.dataset.b;render();scrollToList()});
+document.getElementById("hottg").addEventListener("click",()=>{state.hotOnly=!state.hotOnly;render();scrollToList()});
+document.getElementById("sort").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;state.sortBy=b.dataset.s;render();scrollToList()});
+document.getElementById("list").addEventListener("click",e=>{ if(e.target.closest("[data-reset]")){ state.brand=ALL; state.hotOnly=false; render(); } });
+document.getElementById("allhot").addEventListener("click",()=>{ state.brand=ALL; state.hotOnly=true; render(); document.getElementById("all").scrollIntoView({behavior: reduce?"auto":"smooth"}); });
+document.getElementById("hotn").textContent = items.filter(x=>x.h).length;
 function scrollToList(){const s=document.getElementById("all");if(s.getBoundingClientRect().top<0)s.scrollIntoView({behavior:"smooth"})}
+// チップ列：右にまだある時だけ「→」のヒントを出す
+const chipsW = document.querySelector(".chips-w"), chipsEl0 = document.getElementById("chips");
+function chipHint(){ chipsW.classList.toggle("more", chipsEl0.scrollLeft + chipsEl0.clientWidth < chipsEl0.scrollWidth - 4); chipsW.classList.toggle("less", chipsEl0.scrollLeft > 4); }
+chipsEl0.addEventListener("scroll", chipHint, {passive:true}); addEventListener("resize", chipHint); chipHint();
 
 document.getElementById("maxoff").innerHTML = Math.max(...items.map(x=>x.rz))+"<small>%OFF</small>";
 
@@ -516,14 +674,23 @@ document.addEventListener("click",async e=>{
 });
 
 /* countdown */
-const fmt=d=>`${d.getMonth()+1}/${d.getDate()}`;
-document.getElementById("period").textContent=`期間：${fmt(START)}(水) 0:00 〜 ${fmt(END)}(木) 23:59（日本時間）`;
+// 日付と曜日は日本時間で計算する
+const jst=d=>new Date(d.getTime()+9*3600e3);
+const fmt=d=>{const j=jst(d);return `${j.getUTCMonth()+1}/${j.getUTCDate()}`};
+const wd=d=>"日月火水木金土"[jst(d).getUTCDay()];
+// 表示確認用：?now=2026-11-20T12:00:00+09:00 のように指定すると、その時刻として表示する
+const NOW_Q = new URLSearchParams(location.search).get("now");
+const NOW = () => NOW_Q && !isNaN(Date.parse(NOW_Q)) ? new Date(Date.parse(NOW_Q) + (performance.now()|0)) : new Date();
+const periodText=`${fmt(START)}(${wd(START)}) 0:00 〜 ${fmt(END)}(${wd(END)}) 23:59`;
+document.getElementById("period").textContent=`期間：${periodText}（日本時間）`;
+if (innerWidth<=760) document.getElementById("period").textContent=`${fmt(START)}(${wd(START)})〜${fmt(END)}(${wd(END)}) 23:59`;
+document.getElementById("when").textContent=`${periodText}（日本時間）`;
 function tick(){
-  const now=new Date(), box=document.getElementById("cd"), lbl=document.getElementById("cdlbl");
+  const now=NOW(), box=document.getElementById("cd"), lbl=document.getElementById("cdlbl"), cd=document.querySelector(".cd");
   let target;
-  if(now<START){target=START;lbl.textContent="セール開始まで"}
-  else if(now<END){target=END;lbl.textContent="セール終了まで"}
-  else{lbl.textContent="このセールは終了しました";box.innerHTML="";return}
+  if(now<START){target=START;lbl.textContent="セール開始まで";cd.dataset.st="pre"}
+  else if(now<END){target=END;lbl.innerHTML='<b class="live">● セール開催中</b> 終了まで';cd.dataset.st="live"}
+  else{lbl.textContent="このセールは終了しました";box.innerHTML='<span class="endmsg">ご覧いただきありがとうございました</span>';cd.dataset.st="end";return}
   let s=Math.max(0,Math.floor((target-now)/1000));
   const d=Math.floor(s/86400);s%=86400;const h=Math.floor(s/3600);s%=3600;const m=Math.floor(s/60);s%=60;
   const p=n=>String(n).padStart(2,"0");
