@@ -57,7 +57,17 @@ section{padding:40px 0}
 .h2{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
 .h2 h2{font-size:clamp(24px,4vw,34px);font-weight:900;line-height:1.2}
 .h2 p{color:var(--sub);font-size:14px}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.step.vipstep{border-color:#ffc24a77;background:linear-gradient(160deg,#ffc24a14,var(--card) 60%)}
+.step.vipstep .n{color:var(--gold)}
+.ztag{display:inline-block;font-size:11px;font-weight:900;color:#1a1208;background:var(--gold);border-radius:6px;padding:2px 7px;margin-right:6px;vertical-align:middle;letter-spacing:.02em}
+.codes3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.codes3 .code{padding:7px 8px}
+.codes3 .code span{font-size:13.5px;letter-spacing:.02em}
+.codes3 .code span i{display:none}
+.codes3 .code.done span{color:#3ddc97}
+.code.vipc{border-color:#ffc24a99;background:#ffc24a0d}
+.code.vipc small{color:var(--gold)}
 .step{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px}
 .step .n{font-family:"Outfit";font-weight:900;font-size:14px;color:var(--hot1);letter-spacing:.1em}
 .step h3{font-size:18px;margin:6px 0 4px}
@@ -106,7 +116,9 @@ section{padding:40px 0}
 .row .pr2 .num{font-weight:900;font-size:22px}
 .row .pr2 small{display:block;color:var(--mute);font-size:12px}
 .row .pr2 em{font-style:normal;color:var(--hot1);font-weight:800;font-family:"Outfit";margin-left:6px;font-size:14px}
-.row .codes{grid-template-columns:1fr 1fr}
+.row .codes{grid-template-columns:1fr 1fr 1fr}
+.row{grid-template-columns:56px 1.2fr .9fr 1.9fr auto!important}
+@media (max-width:760px){.row{grid-template-columns:56px 1fr auto!important}}
 .row .btn{padding:10px 16px;font-size:14px;flex:none}
 
 /* profile + notes */
@@ -203,7 +215,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12px;color:var(--mute)}
   <span class="eyebrow"><img src="img/avatar.jpg" alt="ととまる">HiFiZoo × ととまる</span>
   <h1><span class="g">BLACK</span><br>FRIDAY 2026</h1>
   <p class="lead">HiFiZooのセール対象のイヤホン・オーディオ機器を、<b>クーポン付き</b>でまとめました</p>
-  <div class="maxoff"><span>クーポン2枚重ねで最大</span><span class="num" id="maxoff">45%</span><span>OFF</span></div>
+  <div class="maxoff"><span>クーポン3枚重ねで最大</span><span class="num" id="maxoff">45%</span><span>OFF</span></div>
   <div class="count" id="count"></div>
   <p class="period" id="period"></p>
 </header>
@@ -214,7 +226,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12px;color:var(--mute)}
       <div>
         <span class="tag">ととまるフォロワー限定</span>
         <h2>HiFiZooで使える<br><span class="num">$5 OFF</span> 専用クーポン</h2>
-        <p>いつも見てくださっている皆さんのために、HiFiZooさんが専用クーポンを発行してくださいました。<br>有効期限：11/19 〜 12/3</p>
+        <p>いつも見てくださっている皆さんのために、HiFiZooさんが専用クーポンを発行してくださいました。<br><b style="color:var(--gold)">ストアコード・AliExpressコードと併用OK。</b>このページの価格は、TOTOTOまで使った最終価格です。<br>有効期限：11/19 〜 12/3</p>
       </div>
       <button class="vipcode code" data-c="TOTOTO"><small>COUPON CODE</small><b>TOTOTO</b><i>タップでコピー</i></button>
     </div></div>
@@ -245,7 +257,8 @@ footer{padding:40px 0 60px;text-align:center;font-size:12px;color:var(--mute)}
     <div class="steps">
       <div class="step"><div class="n">STEP 01</div><h3>商品ページを開く</h3><p>気になる機種の「AliExpressで見る」から商品ページへ。</p></div>
       <div class="step"><div class="n">STEP 02</div><h3>ストアコードを入れる</h3><p>注文画面の「ストアクーポン」の欄に、ストアコードを入力します。</p></div>
-      <div class="step"><div class="n">STEP 03</div><h3>AliExpressコードを入れる</h3><p>支払い前に、AliExpressコード（JPBF〜）を入力。2枚重ねでこの価格になります。</p></div>
+      <div class="step"><div class="n">STEP 03</div><h3>AliExpressコードを入れる</h3><p>支払い前に、AliExpressコード（JPBF〜）を入力します。</p></div>
+      <div class="step vipstep"><div class="n">STEP 04</div><h3>TOTOTO も入れる</h3><p>フォロワー限定の TOTOTO（$5 OFF）も一緒に使えます。3枚重ねでこのページの価格になります。</p></div>
     </div>
   </section>
 
@@ -262,7 +275,8 @@ footer{padding:40px 0 60px;text-align:center;font-size:12px;color:var(--mute)}
 
   <section>
     <ul class="notes">
-      <li>円の価格は目安です。実際の支払額は為替やAliExpressの表示によって変わります。</li>
+      <li>円の価格は目安です（1ドル＝160円で計算。TOTOTOの$5は約800円）。実際の支払額は為替やAliExpressの表示によって変わります。</li>
+      <li>コードはタップするとコピーできます。</li>
       <li>クーポンは先着や枚数に限りがある場合があります。</li>
       <li>価格・在庫・クーポン内容は予告なく変わることがあります。購入前に商品ページで確認してください。</li>
       <li>このページはHiFiZooさんからのご依頼（PR）で作成しています。HiFiZoo公式のページではありません。</li>
@@ -286,14 +300,15 @@ function codeBtn(label,val){
   if(!val) return `<span class="code none"><small>${label}</small><span>なし</span></span>`;
   return `<button class="code" data-c="${esc(val)}"><small>${label}</small><span>${esc(val)}<i>コピー</i></span></button>`;
 }
+function vipBtn(){return `<button class="code vipc" data-c="TOTOTO"><small>限定</small><span>TOTOTO<i>コピー</i></span></button>`}
 function card(x,big){
   const thumb = x.img ? `<img src="${x.img}" alt="${esc(x.n)}" loading="lazy">` : `<span class="mono">${esc(x.b)}</span>`;
   return `<article class="card hot ${big?'big':''}">
-    <div class="thumb">${thumb}<span class="badge num">-${x.r}%</span>${x.rv?'<span class="rvtag">レビューあり</span>':''}<span class="medama">目玉商品</span></div>
+    <div class="thumb">${thumb}<span class="badge num">-${x.rz}%</span>${x.rv?'<span class="rvtag">レビューあり</span>':''}<span class="medama">目玉商品</span></div>
     <div class="body">
     <div><div class="brand">${esc(x.b)}</div><div class="name">${esc(x.n)}</div></div>
-    <div class="price"><span class="now"><small>¥</small>${yen(x.f)}</span><s>¥${yen(x.p)}</s></div>
-    <div class="codes">${codeBtn("ストアコード",x.s)}${codeBtn("AliExpressコード",x.a)}</div>
+    <div><span class="ztag">TOTOTO込み</span><div class="price"><span class="now"><small>¥</small>${yen(x.fz)}</span><s>¥${yen(x.p)}</s></div></div>
+    <div class="codes3">${codeBtn("ストア",x.s)}${codeBtn("AliExpress",x.a)}${vipBtn()}</div>
     <div class="acts"><a class="btn" href="${x.u}" target="_blank" rel="noopener sponsored">AliExpressで見る</a>${x.rv?`<a class="btn ghost" href="${x.rv}" target="_blank" rel="noopener">レビュー</a>`:''}</div>
     </div>
   </article>`;
@@ -302,21 +317,21 @@ function row(x){
   return `<div class="row ${x.h?'hot':''}">
     <img class="tn" src="${x.img}" alt="" loading="lazy">
     <div class="nm"><small>${esc(x.b)}</small><b>${esc(x.n)}${x.h?'<span class="pill">目玉</span>':''}${x.rv?` <a href="${x.rv}" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold)">レビュー→</a>`:''}</b></div>
-    <div class="pr2"><span class="num">¥${yen(x.f)}</span><em>-${x.r}%</em><small>通常 ¥${yen(x.p)}</small></div>
-    <div class="codes">${codeBtn("ストア",x.s)}${codeBtn("AliExpress",x.a)}</div>
+    <div class="pr2"><span class="num">¥${yen(x.fz)}</span><em>-${x.rz}%</em><small>通常 ¥${yen(x.p)}・TOTOTO込み</small></div>
+    <div class="codes codes3">${codeBtn("ストア",x.s)}${codeBtn("AliExpress",x.a)}${vipBtn()}</div>
     <a class="btn" href="${x.u}" target="_blank" rel="noopener sponsored">見る</a>
   </div>`;
 }
 
 const items = window.ITEMS.map((x,i)=>({...x,i}));
-document.getElementById("maxoff").textContent = Math.max(...items.map(x=>x.r))+"%";
+document.getElementById("maxoff").textContent = Math.max(...items.map(x=>x.rz))+"%";
 
 const brands = ["すべて","🔥 目玉のみ",...new Set(items.map(x=>x.b))];
 let cur = "すべて", sortBy = "rec";
 const sorters = {
   rec:(a,b)=>(b.h-a.h)||(!!b.rv-!!a.rv)||(a.i-b.i),
-  price:(a,b)=>a.f-b.f,
-  off:(a,b)=>b.r-a.r
+  price:(a,b)=>a.fz-b.fz,
+  off:(a,b)=>b.rz-a.rz
 };
 function render(){
   document.getElementById("chips").innerHTML = brands.map(b=>`<button class="chip ${b===cur?'on':''}" data-b="${esc(b)}">${esc(b)}</button>`).join("");
