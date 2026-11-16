@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HiFiZoo ブラックフライデー2026 おすすめまとめ｜ととまる</title>
-<meta name="description" content="HiFiZooのブラックフライデーセール対象イヤホンを、クーポンコード付きでまとめました。コードはタップでコピーできます。【PR】">
+<meta name="description" content="HiFiZooのブラックフライデーセール対象のイヤホン・オーディオ機器を、クーポンコード付きでまとめました。コードはタップでコピーできます。【PR】">
 <meta property="og:title" content="HiFiZoo ブラックフライデー2026 おすすめまとめ【PR】">
 <meta property="og:description" content="クーポン2枚重ねで最大45%オフ。対象31機種のコードをタップでコピー。">
 <meta property="og:type" content="website">
@@ -68,7 +68,7 @@ section{padding:40px 0}
 .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:14px;overflow:hidden;transition:transform .25s,border-color .25s}
 .card:hover{transform:translateY(-3px);border-color:#ff5b2e66}
 .card.hot::before{content:"";position:absolute;inset:0;border-radius:var(--r);padding:1px;background:linear-gradient(140deg,#ff5b2eaa,transparent 40%,transparent 70%,#ff2e7a88);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
-.thumb{height:150px;margin:-20px -20px 0;background:linear-gradient(135deg,#1f1f2b,#121219);display:grid;place-items:center;position:relative;overflow:hidden}
+.thumb{aspect-ratio:1/1;margin:-20px -20px 0;background:linear-gradient(135deg,#1f1f2b,#121219);display:grid;place-items:center;position:relative;overflow:hidden}
 .thumb img{width:100%;height:100%;object-fit:cover}
 .thumb .mono{font-family:"Outfit";font-weight:900;font-size:44px;letter-spacing:-.02em;color:#ffffff10;text-transform:uppercase;white-space:nowrap}
 .badge{position:absolute;top:12px;left:12px;font-family:"Outfit";font-weight:800;font-size:15px;padding:4px 10px;border-radius:999px;background:var(--grad)}
@@ -99,7 +99,8 @@ section{padding:40px 0}
 .chip{all:unset;cursor:pointer;font-size:13px;font-weight:700;padding:8px 14px;border-radius:999px;border:1px solid var(--line);color:var(--sub);transition:.2s}
 .chip.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
 .list{display:flex;flex-direction:column;gap:8px}
-.row{display:grid;grid-template-columns:1.4fr .9fr 1.5fr auto;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.row .tn{width:56px;height:56px;border-radius:10px;object-fit:cover;background:#1f1f2b}
+.row{display:grid;grid-template-columns:56px 1.4fr .9fr 1.5fr auto;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
 .row .nm b{display:block;font-size:16px}
 .row .nm small{font-family:"Outfit";color:var(--mute);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 .row .pr2 .num{font-weight:900;font-size:22px}
@@ -124,7 +125,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12px;color:var(--mute)}
 
 @media (max-width:760px){
   .steps{grid-template-columns:1fr}
-  .row{grid-template-columns:1fr auto;gap:10px}
+  .row{grid-template-columns:56px 1fr auto;gap:10px}
   .row .codes{grid-column:1/-1;order:3}
   .row .btn{grid-column:1/-1;order:4}
   .hero{padding-top:48px}
@@ -141,7 +142,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12px;color:var(--mute)}
 <header class="hero wrap">
   <span class="eyebrow">HiFiZoo × ととまる</span>
   <h1><span class="g">BLACK</span><br>FRIDAY 2026</h1>
-  <p class="lead">HiFiZooのセール対象イヤホンを、<b>クーポン付き</b>でまとめました</p>
+  <p class="lead">HiFiZooのセール対象のイヤホン・オーディオ機器を、<b>クーポン付き</b>でまとめました</p>
   <div class="maxoff"><span>クーポン2枚重ねで最大</span><span class="num" id="maxoff">45%</span><span>OFF</span></div>
   <div class="count" id="count"></div>
   <p class="period" id="period"></p>
@@ -196,7 +197,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12px;color:var(--mute)}
 <script>
 // ===== 期間（終了日が決まったら END を書き換える） =====
 const START = new Date("2026-11-19T00:00:00+09:00");
-const END   = null; // 例: new Date("2026-11-28T23:59:59+09:00")
+const END   = new Date("2026-12-03T23:59:59+09:00");
 
 const yen = n => n.toLocaleString("ja-JP");
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
@@ -217,6 +218,7 @@ function card(x){
 }
 function row(x){
   return `<div class="row">
+    <img class="tn" src="${x.img}" alt="" loading="lazy">
     <div class="nm"><small>${esc(x.b)}</small><b>${esc(x.n)}${x.rv?` <a href="${x.rv}" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold)">レビュー→</a>`:''}</b></div>
     <div class="pr2"><span class="num">¥${yen(x.f)}</span><em>-${x.r}%</em><small>通常 ¥${yen(x.p)}</small></div>
     <div class="codes">${codeBtn("ストア",x.s)}${codeBtn("AliExpress",x.a)}</div>
@@ -262,7 +264,7 @@ function tick(){
   const p=n=>String(n).padStart(2,"0");
   el.innerHTML=`<span class="lbl">${label}</span>`+[[d,"DAYS"],[p(h),"HOURS"],[p(m),"MIN"],[p(s),"SEC"]].map(([v,l])=>`<div class="cbox"><span class="num">${v}</span><small>${l}</small></div>`).join("");
 }
-document.getElementById("period").textContent = `期間：${fmt(START)}(水) 0:00 〜 ${END?fmt(END)+" 23:59":"終了日は確認中"}（日本時間）`;
+document.getElementById("period").textContent = `期間：${fmt(START)}(水) 0:00 〜 ${fmt(END)}(木) 23:59（日本時間）`;
 tick();setInterval(tick,1000);
 </script>
 </body>
