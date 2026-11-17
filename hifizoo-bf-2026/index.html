@@ -141,7 +141,7 @@ section{padding:28px 0}
 .price .now{font-family:"Outfit";font-weight:900;font-size:24px;line-height:1}
 .price .now small{font-size:13px;margin-right:1px}
 .price s{color:var(--mute);font-family:"Outfit";font-size:11.5px}
-.card .codes{gap:5px}
+.card .codes{gap:5px;grid-template-columns:1fr 1fr}
 .card .codes .code{padding:5px 5px}
 .card .codes .code b{font-size:11px;letter-spacing:0}
 .card .acts{flex-direction:column;gap:6px}
@@ -203,6 +203,29 @@ section{padding:28px 0}
 .chips::-webkit-scrollbar{display:none}
 .chip{all:unset;cursor:pointer;font-size:12.5px;font-weight:700;padding:6px 13px;border-radius:999px;border:1px solid var(--line);color:var(--sub);white-space:nowrap}
 .chip.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+
+/* クーポン別グループ */
+.gnav{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.gn{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:var(--card);text-decoration:none;color:var(--tx)}
+.gn span{font-size:12px;font-weight:900}
+.gn b{font-size:22px;font-weight:900;line-height:1.1}
+.gn b small{font-size:11px;margin-left:2px;color:var(--mute)}
+.gn.tototo{border-color:#ffc24a77;background:linear-gradient(135deg,#ffc24a1c,var(--card) 70%)}
+.gn.tototo span{color:var(--gold)}
+.gn.store{border-color:#ff730077;background:linear-gradient(135deg,#ff73001c,var(--card) 70%)}
+.gn.store span{color:var(--or)}
+.gn.zero{opacity:.4;pointer-events:none}
+.ghead{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 10px;padding:12px 14px;border-radius:14px;margin-top:10px;scroll-margin-top:120px;border-left:4px solid var(--or);background:#ff730012}
+.ghead.tototo{border-left-color:var(--gold);background:#ffc24a12}
+.ghead:first-child{margin-top:0}
+.ghead .gt{display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 230px}
+.ghead .gi{font-size:22px}
+.ghead h3{margin:0;font-size:16px;white-space:nowrap;font-weight:900;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.ghead .gc{font-size:12px;color:var(--mute);font-weight:700}
+.ghead p{margin:2px 0 0;font-size:12px;color:var(--sub)}
+.ghead p b{color:var(--tx)}
+.ghead .gcode{flex:none;width:auto;padding:6px 12px}
+.item .codes{grid-template-columns:1fr 1fr}
 
 /* list */
 .list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
@@ -383,7 +406,7 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
 
 /* 小さい画面向けの詰め */
 .pr .ps{display:none}
-@media (max-width:760px){ .card .codes .code{padding:5px 4px} .card .codes .code b{font-size:10.2px} .pr .pl{display:none} .pr .ps{display:inline} .kick{display:none} .rail-wrap{--cw:min(57vw,216px)} }
+@media (max-width:760px){ .card .codes .code{padding:5px 6px} .card .codes .code b{font-size:11.5px} .pr .pl{display:none} .pr .ps{display:inline} .kick{display:none} .rail-wrap{--cw:min(57vw,216px)} }
 @media (max-width:360px){ .pr{font-size:10.5px} }
 @media (max-width:760px){
   .card .codes-h,.card .noz{display:none}
@@ -397,7 +420,7 @@ footer .logo{height:18px;margin:0 auto 10px;opacity:.7}
 @media (max-width:360px){
   .rail-wrap{--cw:min(64vw,236px)}
   .card .codes{grid-template-columns:1fr 1fr}
-  .card .codes .vipc{grid-column:1/-1}
+
   .vip h2{white-space:normal!important;font-size:15px!important}
   .vipcode{padding:6px 9px}
   .vipcode b{font-size:16px}
@@ -541,6 +564,7 @@ body.sheet-open{overflow:hidden}
         <div class="chips-w"><div class="chips" id="chips" role="group" aria-label="ブランドで絞り込み"></div></div>
       </div>
     </div>
+    <nav class="gnav" id="gnav" aria-label="クーポン別に移動"></nav>
     <div class="list" id="list"></div>
   </section>
 
@@ -585,7 +609,7 @@ body.sheet-open{overflow:hidden}
 <footer><img class="logo" src="img/hifizoo-logo.png" alt="HiFiZoo">© ととまる　｜　Prices as of Nov 2026</footer>
 <div class="toast" id="toast" role="status" aria-live="polite">コピーしました</div>
 
-<script src="data.js?v=202611171900"></script>
+<script src="data.js?v=202611172100"></script>
 <script>
 const START = new Date("2026-11-19T00:00:00+09:00");
 const END   = new Date("2026-12-03T23:59:59+09:00");
@@ -599,13 +623,12 @@ function codeBtn(label,val,cls=""){
   if(!val) return `<span class="code none"><small>${label}</small><b>なし</b></span>`;
   return `<button class="code ${cls}" data-c="${esc(val)}" aria-label="${label} ${esc(val)} をコピー"><small>${label}</small><b>${esc(val)}</b></button>`;
 }
-const REC = x => x.best; // s=ストアコードがお得 / t=TOTOTOがお得 / e=同じ
-const vipBtn = x => `<button class="code vipc ${x.best==="t"?"rec":""} ${x.best==="s"?"dim":""}" data-c="TOTOTO" aria-label="①TOTOTO をコピー"><small>①TOTOTO</small><b>TOTOTO</b></button>`;
-const codes = x => `<div class="codes-w"><div class="codes-h">使うクーポン<span>①はどちらか1つ＋②</span></div><div class="codes">${codeBtn("①ストア",x.s,x.best==="s"?"rec":x.best==="t"?"dim":"")}${vipBtn(x)}${codeBtn("②AliExpress",x.a,"")}</div></div>`;
+// グループ分け：ストアコードの方が安い機種だけ "store"。同じ価格・ストアコードなしは TOTOTO 側
+const GRP = x => x.best==="s" ? "store" : "tototo";
+const vipBtn = () => `<button class="code vipc" data-c="TOTOTO" aria-label="TOTOTO をコピー"><small>ととまる限定</small><b>TOTOTO</b></button>`;
+const codes = x => `<div class="codes-w"><div class="codes">${GRP(x)==="store"?codeBtn("ストア",x.s):vipBtn()}${codeBtn("AliExpress",x.a)}</div></div>`;
 const shopBtn = (x,cls="btn") => `<a class="${cls}" href="${x.u}" target="_blank" rel="noopener sponsored" aria-label="${esc(x.n)}をAliExpressで見る（外部サイト）">AliExpressで見る${EXT}</a>`;
 const revBtn = (x,cls="btn ghost") => x.rv ? `<a class="${cls}" href="${x.rv}" target="_blank" rel="noopener" aria-label="${esc(x.n)}の実機レビューを読む（note）">レビューを読む</a>` : "";
-// 価格の内訳（どちらのコードを使った場合か）
-const how2 = x => !x.s ? `TOTOTO＋AliExpressの場合（ストアコードはありません。TOTOTOなしなら ¥${yen(x.fs)}）` : x.best==="t" ? `TOTOTO＋AliExpressの場合（ストアコードなら ¥${yen(x.fs)}）` : x.best==="s" ? `ストアコード＋AliExpressの場合（TOTOTOなら ¥${yen(x.ft)}）` : `ストアコード・TOTOTOどちらでも同じ価格`;
 
 /* 目玉カルーセル */
 function card(x){
@@ -615,7 +638,7 @@ function card(x){
       <div><div class="brand">${esc(x.b)}</div><div class="name">${esc(x.n)}</div></div>
       <div><div class="plbl">クーポン適用後の参考価格</div>
       <div class="price"><span class="now"><small>¥</small>${yen(x.fz)}</span><s>¥${yen(x.p)}</s></div>
-      <div class="noz">${how2(x)}</div></div>
+</div>
       ${codes(x)}
       <div class="acts">${shopBtn(x)}${revBtn(x)}</div>
     </div>
@@ -698,10 +721,9 @@ function item(x){
   return `<div class="item rv-in ${x.h?'hot':''}">
     <img class="tn" src="${x.img}" alt="${esc(x.n)}" loading="lazy">
     <div class="info">
-      <div class="brand">${esc(x.b)}${x.h?'<span class="pill">🔥目玉</span>':''}${x.rv?'<span class="rvp">実機レビューあり</span>':''}</div>
+      <div class="brand">${esc(x.b)}${x.h?'<span class="pill">🔥目玉</span>':''}</div>
       <div class="nm">${esc(x.n)}</div>
       <div class="pr"><span class="num">¥${yen(x.fz)}</span><em>-${x.rz}%</em><s>¥${yen(x.p)}</s></div>
-      <div class="noz">${how2(x)}</div>
     </div>
     ${codes(x)}
     <div class="iacts">${shopBtn(x,"go")}${revBtn(x,"go2")}</div>
@@ -715,6 +737,10 @@ const state = { brand: ALL, hotOnly: false, sortBy: "rec" };
 const sorters = {rec:(a,b)=>(b.h-a.h)||(!!b.rv-!!a.rv)||(a.i-b.i), price:(a,b)=>a.fz-b.fz, off:(a,b)=>b.rz-a.rz};
 const passBrand = (x,b) => b===ALL || x.b===b;
 const passHot = x => !state.hotOnly || x.h;
+const GDEF = [
+  {k:"tototo", ic:"🎟", short:"TOTOTOがお得", title:"ととまるクーポンがお得", use:"<b>TOTOTO</b> ＋ <b>AliExpressコード</b> で購入", extra:`<button class="code vipc gcode" data-c="TOTOTO" aria-label="TOTOTO をコピー"><small>タップでコピー</small><b>TOTOTO</b></button>`},
+  {k:"store", ic:"🏷", short:"ストアクーポンがお得", title:"ストアクーポンがお得", use:"<b>ストアコード</b> ＋ <b>AliExpressコード</b> で購入", extra:""}
+];
 let render;
 render = function(){
   const chipsEl = document.getElementById("chips");
@@ -731,8 +757,10 @@ render = function(){
   const label = [state.brand===ALL?"":state.brand, state.hotOnly?"目玉":""].filter(Boolean).join("・") || "すべて";
   document.getElementById("hit").textContent = `${label}：${list.length}件`;
   const filtered = state.brand!==ALL || state.hotOnly;
+  const G = {tototo:list.filter(x=>GRP(x)==="tototo"), store:list.filter(x=>GRP(x)==="store")};
+  document.getElementById("gnav").innerHTML = GDEF.map(g=>`<a href="#g-${g.k}" class="gn ${g.k} ${G[g.k].length?'':'zero'}"><span>${g.ic} ${g.short}</span><b class="num">${G[g.k].length}<small>件</small></b></a>`).join("");
   document.getElementById("list").innerHTML = list.length
-    ? list.map(item).join("")
+    ? GDEF.filter(g=>G[g.k].length).map(g=>`<div class="ghead ${g.k}" id="g-${g.k}"><div class="gt"><span class="gi">${g.ic}</span><div><h3>${g.title}<span class="gc">${G[g.k].length}件</span></h3><p>${g.use}</p></div></div>${g.extra}</div>`+G[g.k].map(item).join("")).join("")
     : `<div class="empty"><p>「${esc(label)}」に当てはまる機種はありません。</p><button class="reset" data-reset>絞り込みを解除する</button></div>`;
   if (list.length && filtered) document.getElementById("list").insertAdjacentHTML("afterbegin", `<div class="fstate">${esc(label)}で絞り込み中（${list.length}件）<button class="reset sm" data-reset>解除</button></div>`);
   document.querySelectorAll("#list .rv-in").forEach((el,k)=>{ el.style.transitionDelay = (k%2)*60+"ms"; io.observe(el); });
