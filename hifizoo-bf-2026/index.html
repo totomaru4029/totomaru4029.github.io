@@ -246,27 +246,31 @@ a.rvtag:hover,a.rvp:hover{background:var(--gold);color:#1a1208}
   .card .price .now{font-size:28px}
 }
 
-/* クーポン別グループ */
-.gnav{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.gn{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:var(--card);text-decoration:none;color:var(--tx)}
-.gn span{font-size:12px;font-weight:900}
-.gn b{font-size:22px;font-weight:900;line-height:1.1}
-.gn b small{font-size:11px;margin-left:2px;color:var(--mute)}
-.gn.tototo{border-color:#ffc24a77;background:linear-gradient(135deg,#ffc24a1c,var(--card) 70%)}
-.gn.tototo span{color:var(--gold)}
-.gn.store{border-color:#ff730077;background:linear-gradient(135deg,#ff73001c,var(--card) 70%)}
-.gn.store span{color:var(--or)}
-.gn.zero{opacity:.4;pointer-events:none}
-.ghead{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 10px;padding:12px 14px;border-radius:14px;margin-top:10px;scroll-margin-top:120px;border-left:4px solid var(--or);background:#ff730012}
-.ghead.tototo{border-left-color:var(--gold);background:#ffc24a12}
-.ghead:first-child{margin-top:0}
-.ghead .gt{display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 230px}
-.ghead .gi{font-size:22px}
-.ghead h3{margin:0;font-size:16px;white-space:nowrap;font-weight:900;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.ghead .gc{font-size:12px;color:var(--mute);font-weight:700}
-.ghead p{margin:2px 0 0;font-size:12px;color:var(--sub)}
+/* クーポン別グループ：タブで切り替え */
+.gnav-w{margin-top:12px}
+.gnav-l{font-size:11px;font-weight:700;color:var(--mute);margin-bottom:5px}
+.gnav{display:grid;grid-template-columns:.7fr 1fr 1fr;gap:4px;padding:4px;border-radius:14px;background:var(--bg2);border:1px solid var(--line)}
+.gn{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:48px;padding:6px 4px;border-radius:10px;color:var(--sub);text-align:center;transition:.15s;border:1px solid transparent}
+.gn span{font-size:11.5px;font-weight:900;line-height:1.2;white-space:nowrap}
+.gn b{font-family:"Outfit";font-size:16px;font-weight:900;line-height:1.1}
+.gn b small{font-family:"Zen Kaku Gothic New";font-size:10px;margin-left:1px;color:var(--mute)}
+.gn:hover{color:var(--tx)}
+.gn.on{background:var(--card);color:var(--tx);border-color:#ffffff33;box-shadow:0 4px 14px -6px #000}
+.gn.tototo.on{border-color:var(--gold);color:var(--gold);background:#ffc24a17}
+.gn.store.on{border-color:var(--or);color:var(--or);background:#ff730017}
+.gn.on b{color:var(--tx)}
+.gn.zero{opacity:.35;pointer-events:none}
+.ghead{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 8px 8px 12px;border-radius:12px;margin-top:8px;border-left:3px solid var(--or);background:#ff730010}
+.ghead.tototo{border-left-color:var(--gold);background:#ffc24a10}
+.ghead:first-child,.fstate+.ghead{margin-top:0}
+.ghead .gt{min-width:0}
+.ghead h3{margin:0;font-size:14px;font-weight:900;line-height:1.3;white-space:nowrap}
+.ghead h3 .gc{font-size:11px;color:var(--mute);font-weight:700;margin-left:6px}
+.ghead p{margin:1px 0 0;font-size:11px;color:var(--sub);white-space:nowrap}
 .ghead p b{color:var(--tx)}
-.ghead .gcode{flex:none;width:auto;padding:6px 12px}
+.ghead .gcode{flex:none;flex-direction:row;align-items:center;gap:6px;padding:6px 10px;border-style:solid}
+.ghead .gcode b{font-size:14px}
+.ghead .gcode small{font-size:10px}
 .item .codes{grid-template-columns:1fr 1fr}
 
 /* list */
@@ -602,7 +606,7 @@ body.sheet-open{overflow:hidden}
         <div class="chips-w"><div class="chips" id="chips" role="group" aria-label="ブランドで絞り込み"></div></div>
       </div>
     </div>
-    <nav class="gnav" id="gnav" aria-label="クーポン別に移動"></nav>
+    <div class="gnav-w"><div class="gnav-l">お得なクーポンで分ける</div><div class="gnav" id="gnav" role="group" aria-label="お得なクーポンで分ける"></div></div>
     <div class="list" id="list"></div>
   </section>
 
@@ -768,13 +772,13 @@ function item(x){
 /* 絞り込み・並び替え（ブランド × 目玉のみ × 並び順） */
 const ALL = "すべて";
 const brandNames = [...new Set(items.map(x=>x.b))];
-const state = { brand: ALL, hotOnly: false, sortBy: "rec" };
+const state = { brand: ALL, hotOnly: false, sortBy: "rec", grp: "all" };
 const sorters = {rec:(a,b)=>(b.h-a.h)||(!!b.rv-!!a.rv)||(a.i-b.i), price:(a,b)=>a.fz-b.fz, off:(a,b)=>b.rz-a.rz};
 const passBrand = (x,b) => b===ALL || x.b===b;
 const passHot = x => !state.hotOnly || x.h;
 const GDEF = [
-  {k:"tototo", ic:"🎟", short:"TOTOTOがお得", title:"ととまるクーポンがお得", use:"<b>TOTOTO</b> ＋ <b>AliExpressコード</b> で購入", extra:`<button class="code vipc gcode" data-c="TOTOTO" aria-label="TOTOTO をコピー"><small>タップでコピー</small><b>TOTOTO</b></button>`},
-  {k:"store", ic:"🏷", short:"ストアクーポンがお得", title:"ストアクーポンがお得", use:"<b>ストアコード</b> ＋ <b>AliExpressコード</b> で購入", extra:""}
+  {k:"tototo", ic:"🎟", short:"TOTOTOがお得", title:"ととまるクーポンがお得", use:"<b>TOTOTO</b>＋<b>AliExpressコード</b>で購入", extra:`<button class="code vipc gcode" data-c="TOTOTO" aria-label="TOTOTO をコピー"><b>TOTOTO</b><small>コピー</small></button>`},
+  {k:"store", ic:"🏷", short:"ストアがお得", title:"ストアクーポンがお得", use:"<b>ストアコード</b>＋<b>AliExpressコード</b>で購入", extra:""}
 ];
 let render;
 render = function(){
@@ -793,9 +797,10 @@ render = function(){
   document.getElementById("hit").textContent = `${label}：${list.length}件`;
   const filtered = state.brand!==ALL || state.hotOnly;
   const G = {tototo:list.filter(x=>GRP(x)==="tototo"), store:list.filter(x=>GRP(x)==="store")};
-  document.getElementById("gnav").innerHTML = GDEF.map(g=>`<a href="#g-${g.k}" class="gn ${g.k} ${G[g.k].length?'':'zero'}"><span>${g.ic} ${g.short}</span><b class="num">${G[g.k].length}<small>件</small></b></a>`).join("");
+  if (state.grp!=="all" && !G[state.grp].length) state.grp = "all";
+  document.getElementById("gnav").innerHTML = [{k:"all",ic:"",short:"すべて"},...GDEF].map(g=>{ const n=g.k==="all"?list.length:G[g.k].length, on=state.grp===g.k; return `<button class="gn ${g.k} ${on?'on':''} ${n?'':'zero'}" data-g="${g.k}" aria-pressed="${on}"><span>${g.ic?g.ic+' ':''}${g.short}</span><b>${n}<small>件</small></b></button>`; }).join("");
   document.getElementById("list").innerHTML = list.length
-    ? GDEF.filter(g=>G[g.k].length).map(g=>`<div class="ghead ${g.k}" id="g-${g.k}"><div class="gt"><span class="gi">${g.ic}</span><div><h3>${g.title}<span class="gc">${G[g.k].length}件</span></h3><p>${g.use}</p></div></div>${g.extra}</div>`+G[g.k].map(item).join("")).join("")
+    ? GDEF.filter(g=>G[g.k].length && (state.grp==="all"||state.grp===g.k)).map(g=>`<div class="ghead ${g.k}" id="g-${g.k}"><div class="gt"><h3>${g.ic} ${g.title}<span class="gc">${G[g.k].length}件</span></h3><p>${g.use}</p></div>${g.extra}</div>`+G[g.k].map(item).join("")).join("")
     : `<div class="empty"><p>「${esc(label)}」に当てはまる機種はありません。</p><button class="reset" data-reset>絞り込みを解除する</button></div>`;
   if (list.length && filtered) document.getElementById("list").insertAdjacentHTML("afterbegin", `<div class="fstate">${esc(label)}で絞り込み中（${list.length}件）<button class="reset sm" data-reset>解除</button></div>`);
   document.querySelectorAll("#list .rv-in").forEach((el,k)=>{ el.style.transitionDelay = (k%2)*60+"ms"; io.observe(el); });
@@ -805,13 +810,15 @@ render = function(){
 }
 // 絞り込みをURLに残す（?brand=AFUL&hot=1&sort=price）。共有したリンクから同じ状態で開ける
 const P = new URLSearchParams(location.search);
-const fromURL = P.has("brand")||P.has("hot")||P.has("sort");
+const fromURL = P.has("brand")||P.has("hot")||P.has("sort")||P.has("g");
+if (["tototo","store"].includes(P.get("g"))) state.grp = P.get("g");
 if (P.get("brand") && brandNames.includes(P.get("brand"))) state.brand = P.get("brand");
 if (P.get("hot")==="1") state.hotOnly = true;
 if (P.get("sort") && sorters[P.get("sort")]) state.sortBy = P.get("sort");
 function syncURL(){
   const q = new URLSearchParams(location.search);
-  ["brand","hot","sort"].forEach(k=>q.delete(k));
+  ["brand","hot","sort","g"].forEach(k=>q.delete(k));
+  if (state.grp!=="all") q.set("g", state.grp);
   if (state.brand!==ALL) q.set("brand", state.brand);
   if (state.hotOnly) q.set("hot","1");
   if (state.sortBy!=="rec") q.set("sort", state.sortBy);
@@ -825,6 +832,7 @@ if (fromURL) setTimeout(()=>document.getElementById("all").scrollIntoView(),400)
 document.getElementById("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;state.brand=b.dataset.b;render();scrollToList()});
 document.getElementById("hottg").addEventListener("click",()=>{state.hotOnly=!state.hotOnly;render();scrollToList()});
 document.getElementById("sort").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;state.sortBy=b.dataset.s;render();scrollToList()});
+document.getElementById("gnav").addEventListener("click",e=>{const b=e.target.closest(".gn");if(!b)return;state.grp=b.dataset.g;render();scrollToList()});
 document.getElementById("list").addEventListener("click",e=>{ if(e.target.closest("[data-reset]")){ state.brand=ALL; state.hotOnly=false; render(); } });
 function scrollToList(){const s=document.getElementById("all");if(s.getBoundingClientRect().top<0)s.scrollIntoView({behavior:"smooth"})}
 // チップ列：右にまだある時だけ「→」のヒントを出す
