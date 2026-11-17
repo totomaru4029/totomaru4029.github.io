@@ -193,7 +193,7 @@ section{padding:28px 0}
 
 /* sticky filter */
 .bar{position:sticky;top:0;z-index:5;margin:0 -20px;padding:10px 20px;background:#0a0a0ce8;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.bar .row1{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.bar .row1{display:none}
 .bar .row1 b{font-size:14px}
 .bar .row1 span{font-size:12px;color:var(--mute)}
 .sort{margin-left:auto;display:flex;background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:3px}
@@ -598,9 +598,6 @@ body.sheet-open{overflow:hidden}
 
   <section id="all" style="padding-top:6px">
     <div class="bar">
-      <div class="row1"><b>対象機種</b><span id="hit" aria-live="polite"></span>
-        <div class="sort" id="sort" role="group" aria-label="並び替え"><button data-s="rec" class="on" aria-pressed="true">おすすめ</button><button data-s="price" aria-pressed="false">安い順</button><button data-s="off" aria-pressed="false">割引率</button></div>
-      </div>
       <div class="row2">
         <button class="hottg" id="hottg" aria-pressed="false"><i></i>🔥 目玉のみ</button>
         <div class="chips-w"><div class="chips" id="chips" role="group" aria-label="ブランドで絞り込み"></div></div>
@@ -790,11 +787,9 @@ render = function(){
   }).join("");
   const tg = document.getElementById("hottg");
   tg.classList.toggle("on", state.hotOnly); tg.setAttribute("aria-pressed", state.hotOnly);
-  document.querySelectorAll("#sort button").forEach(x=>{ const on=x.dataset.s===state.sortBy; x.classList.toggle("on",on); x.setAttribute("aria-pressed",on); });
 
   const list = items.filter(x=>passBrand(x,state.brand)&&passHot(x)).sort(sorters[state.sortBy]);
   const label = [state.brand===ALL?"":state.brand, state.hotOnly?"目玉":""].filter(Boolean).join("・") || "すべて";
-  document.getElementById("hit").textContent = `${label}：${list.length}件`;
   const filtered = state.brand!==ALL || state.hotOnly;
   const G = {tototo:list.filter(x=>GRP(x)==="tototo"), store:list.filter(x=>GRP(x)==="store")};
   if (state.grp!=="all" && !G[state.grp].length) state.grp = "all";
@@ -831,7 +826,6 @@ render();
 if (fromURL) setTimeout(()=>document.getElementById("all").scrollIntoView(),400);
 document.getElementById("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;state.brand=b.dataset.b;render();scrollToList()});
 document.getElementById("hottg").addEventListener("click",()=>{state.hotOnly=!state.hotOnly;render();scrollToList()});
-document.getElementById("sort").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;state.sortBy=b.dataset.s;render();scrollToList()});
 document.getElementById("gnav").addEventListener("click",e=>{const b=e.target.closest(".gn");if(!b)return;state.grp=b.dataset.g;render();scrollToList()});
 document.getElementById("list").addEventListener("click",e=>{ if(e.target.closest("[data-reset]")){ state.brand=ALL; state.hotOnly=false; render(); } });
 function scrollToList(){const s=document.getElementById("all");if(s.getBoundingClientRect().top<0)s.scrollIntoView({behavior:"smooth"})}
