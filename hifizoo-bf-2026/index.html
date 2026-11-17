@@ -210,6 +210,19 @@ section{padding:28px 0}
 .maxoff span{color:var(--sub)}
 .maxoff .num{color:var(--or)}
 
+/* 目玉カード：コンパクトに */
+.rail .card .body{gap:8px;padding:10px 12px 12px}
+.rail .card .name{font-size:16px;line-height:1.2}
+.rail .card .price{align-items:baseline;gap:6px;flex-wrap:nowrap}
+.pl2{font-size:10px;font-weight:700;color:var(--or);border:1px solid #ff730077;border-radius:5px;padding:0 5px;line-height:16px;align-self:center;white-space:nowrap}
+.rail .card .price .now{font-size:30px!important;color:#fff}
+.rail .card .codes .code{padding:4px 8px!important;border-radius:9px}
+.rail .card .codes .code small{font-size:9px;line-height:1.15}
+.rail .card .codes .code b{font-size:13.5px!important;line-height:1.2}
+.rail .card .acts .btn{min-height:42px;padding:0 10px;font-size:14px}
+a.rvtag,a.rvp{text-decoration:none}
+a.rvtag:hover,a.rvp:hover{background:var(--gold);color:#1a1208}
+
 /* 買い方（3ステップ） */
 .flow{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:0;padding:0}
 .flow li{position:relative;display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;line-height:1.4;color:var(--sub)}
@@ -653,19 +666,16 @@ const GRP = x => x.best==="s" ? "store" : "tototo";
 const vipBtn = () => `<button class="code vipc" data-c="TOTOTO" aria-label="TOTOTO をコピー"><small>ととまる限定</small><b>TOTOTO</b></button>`;
 const codes = x => `<div class="codes-w"><div class="codes">${GRP(x)==="store"?codeBtn("ストア",x.s):vipBtn()}${codeBtn("AliExpress",x.a)}</div></div>`;
 const shopBtn = (x,cls="btn") => `<a class="${cls}" href="${x.u}" target="_blank" rel="noopener sponsored" aria-label="${esc(x.n)}をAliExpressで見る（外部サイト）">AliExpressで見る${EXT}</a>`;
-const revBtn = (x,cls="btn ghost") => x.rv ? `<a class="${cls}" href="${x.rv}" target="_blank" rel="noopener" aria-label="${esc(x.n)}の実機レビューを読む（note）">レビューを読む</a>` : "";
 
 /* 目玉カルーセル */
 function card(x){
   return `<article class="card">
-    <div class="thumb"><img src="${x.img}" alt="${esc(x.n)}" loading="lazy"><span class="badge num">-${x.rz}%</span>${x.rv?'<span class="rvtag">実機レビューあり</span>':''}<span class="medama">🔥 目玉商品</span></div>
+    <div class="thumb"><img src="${x.img}" alt="${esc(x.n)}" loading="lazy"><span class="badge num">-${x.rz}%</span>${x.rv?`<a class="rvtag" href="${x.rv}" target="_blank" rel="noopener" aria-label="${esc(x.n)}の実機レビューを読む（note）">実機レビュー ›</a>`:''}<span class="medama">🔥 目玉商品</span></div>
     <div class="body">
       <div><div class="brand">${esc(x.b)}</div><div class="name">${esc(x.n)}</div></div>
-      <div><div class="plbl">クーポン適用後の参考価格</div>
-      <div class="price"><span class="now"><small>¥</small>${yen(x.fz)}</span><s>¥${yen(x.p)}</s></div>
-</div>
+      <div class="price"><span class="pl2">クーポン後</span><span class="now"><small>¥</small>${yen(x.fz)}</span><s>¥${yen(x.p)}</s></div>
       ${codes(x)}
-      <div class="acts">${shopBtn(x)}${revBtn(x)}</div>
+      <div class="acts">${shopBtn(x)}</div>
     </div>
   </article>`;
 }
@@ -746,12 +756,12 @@ function item(x){
   return `<div class="item rv-in ${x.h?'hot':''}">
     <img class="tn" src="${x.img}" alt="${esc(x.n)}" loading="lazy">
     <div class="info">
-      <div class="brand">${esc(x.b)}${x.h?'<span class="pill">🔥目玉</span>':''}</div>
+      <div class="brand">${esc(x.b)}${x.h?'<span class="pill">🔥目玉</span>':''}${x.rv?`<a class="rvp" href="${x.rv}" target="_blank" rel="noopener" aria-label="${esc(x.n)}の実機レビューを読む（note）">レビュー ›</a>`:''}</div>
       <div class="nm">${esc(x.n)}</div>
       <div class="pr"><span class="num">¥${yen(x.fz)}</span><em>-${x.rz}%</em><s>¥${yen(x.p)}</s></div>
     </div>
     ${codes(x)}
-    <div class="iacts">${shopBtn(x,"go")}${revBtn(x,"go2")}</div>
+    <div class="iacts">${shopBtn(x,"go")}</div>
   </div>`;
 }
 
